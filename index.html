@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Study Quiz">
+    <title>Study Quiz</title>
+    <style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+.checkbox-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+}
+.checkbox-list label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+    font-weight: normal;
+}
+.checkbox-list label:hover {
+    background: #f0f0ff;
+}
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background: #5568d3;
+}
+.btn-back {
+    padding: 8px 16px;
+    background: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.hidden { display: none !important; }
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.quiz-progress {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+#question-container {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+.question-text {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+.options-list {
+    list-style: none;
+}
+.options-list li {
+    margin-bottom: 10px;
+}
+.options-list label {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.options-list label:hover {
+    border-color: #667eea;
+    background: #f0f0ff;
+}
+.options-list input { margin-right: 10px; }
+.answer-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+.feedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+    background: #fff3cd;
+}
+.feedback.correct {
+    background: #d4edda;
+    border-left-color: #28a745;
+}
+.feedback.incorrect {
+    background: #f8d7da;
+    border-left-color: #dc3545;
+}
+.nav-buttons {
+    margin-top: 20px;
+}
+#results {
+    margin-top: 30px;
+}
+.score-summary {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+.result-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #ddd;
+}
+.result-item.correct { border-left-color: #28a745; }
+.result-item.incorrect { border-left-color: #dc3545; }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Setup Screen -->
+        <div id="setup-screen">
+            <h1>📚 Study Quiz</h1>
+
+            <div class="form-group">
+                <label>Subject:</label>
+                <select id="subject-select" class="form-control">
+                    <option value="">-- Select Subject --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Sections (pick one or more):</label>
+                <div id="sections-list" class="checkbox-list"></div>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="show-feedback" checked>
+                    Show feedback after each question
+                </label>
+            </div>
+
+            <button id="start-quiz-btn" class="btn-primary">Start Quiz</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden">
+            <div class="quiz-header">
+                <button id="back-btn" class="btn-back">← Back to Setup</button>
+                <div class="quiz-progress">
+                    Question <span id="current">1</span> / <span id="total">0</span>
+                </div>
+            </div>
+
+            <div id="question-container"></div>
+
+            <div class="nav-buttons">
+                <button id="next-btn" class="btn-primary">Next →</button>
+            </div>
+
+            <div id="results" class="hidden"></div>
+        </div>
+    </div>
+
+    <script>
+// All questions organized by subject/section
+const ALL_QUESTIONS = {"History": {"Section 1 - Book Reading": [{"subject": "History", "section": "Section 1 - Book Reading", "question": "The earliest period of human history is called the ____ Age.", "type": "Short Answer", "options": [], "correct_answer": "Stone", "feedback": "Historians call the early period of human history the Stone Age."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Early humans who regularly moved from place to place were called:", "type": "Single Choice", "options": ["Farmers", "Nomads", "Anthropologists", "Historians"], "correct_answer": "Nomads", "feedback": "Paleolithic people were nomads who moved to hunt animals and gather food."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Paleolithic people adapted to their environment by making tools and using fire.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Tools and fire helped Paleolithic people survive."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Which of the following was an important discovery of Paleolithic people?", "type": "Single Choice", "options": ["Fire", "The plow", "Writing", "Papyrus"], "correct_answer": "Fire", "feedback": "Paleolithic people tamed fire for warmth, protection, and cooking."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Paleolithic cave paintings often showed:", "type": "Single Choice", "options": ["Animals", "Gods", "Weapons", "Plants"], "correct_answer": "Animals", "feedback": "Cave art often showed animals and may have had religious meaning."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "During the Ice Ages, people survived by using fire, warm clothing, and sturdy _____.", "type": "Short Answer", "options": [], "correct_answer": "Shelters", "feedback": "Early humans built caves or animal-hide shelters to survive the cold."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "The shift from hunting and gathering to farming is known as the:", "type": "Single Choice", "options": ["Bronze Age", "Neolithic Age", "Ice Age", "Stone Age"], "correct_answer": "Neolithic Age", "feedback": "Farming began in the Neolithic Age, also called the New Stone Age."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Domestication refers to:", "type": "Single Choice", "options": ["Taming animals and plants", "Building homes of mud brick", "Developing written laws", "Specializing in jobs"], "correct_answer": "Taming animals and plants", "feedback": "Neolithic people domesticated animals and plants for human use."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Which of these was a Neolithic community?", "type": "Multiple Choice", "options": ["Jericho", "\u00c7atal H\u00fcy\u00fck", "Babylon", "Uruk"], "correct_answer": ["Jericho", "\u00c7atal H\u00fcy\u00fck"], "feedback": "Both Jericho and \u00c7atal H\u00fcy\u00fck were early Neolithic villages."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Specialization in the Neolithic Age meant:", "type": "Single Choice", "options": ["People all farmed the same crops", "People developed different kinds of jobs", "People built stronger shelters", "People worshiped in ziggurats"], "correct_answer": "People developed different kinds of jobs", "feedback": "Extra food allowed some people to work as potters, weavers, or toolmakers."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "The period after 4000 B.C. when people mixed copper and tin to make stronger tools is called the ____ Age.", "type": "Short Answer", "options": [], "correct_answer": "Bronze", "feedback": "The Bronze Age lasted from about 3000 to 1200 B.C."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Mesopotamia means \u201cthe land between the rivers.\u201d Which rivers were these?", "type": "Multiple Choice", "options": ["Tigris", "Euphrates", "Nile", "Indus"], "correct_answer": ["Tigris", "Euphrates"], "feedback": "Farming in Mesopotamia depended on the Tigris and Euphrates."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "A civilization is best defined as:", "type": "Single Choice", "options": ["A small farming village", "A society with cities, government, art, religion, class divisions, and writing", "A group of nomads", "A kingdom ruled by one family"], "correct_answer": "A society with cities, government, art, religion, class divisions, and writing", "feedback": "Civilizations are complex societies with organized structures."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Each Sumerian city built a large temple called a:", "type": "Single Choice", "options": ["Pyramid", "Ziggurat", "Shrine", "Palace"], "correct_answer": "Ziggurat", "feedback": "Ziggurats were temples built to honor the city\u2019s chief god."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Which group made up the largest social class in Sumer?", "type": "Single Choice", "options": ["Priests", "Kings", "Farmers and fishers", "Enslaved people"], "correct_answer": "Farmers and fishers", "feedback": "Most people in Sumer were middle-class farmers and fishers."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "The Sumerian writing system was called:", "type": "Single Choice", "options": ["Hieroglyphics", "Alphabet", "Cuneiform", "Latin"], "correct_answer": "Cuneiform", "feedback": "Sumerians developed cuneiform, wedge-shaped marks on clay tablets."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Who held honored positions as record keepers in Sumerian society?", "type": "Single Choice", "options": ["Priests", "Scribes", "Merchants", "Artisans"], "correct_answer": "Scribes", "feedback": "Scribes kept records and often became judges or leaders."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "The world\u2019s oldest known story, from Sumer, is called the Epic of _____.", "type": "Short Answer", "options": [], "correct_answer": "Gilgamesh", "feedback": "The Epic of Gilgamesh was a long poem about a king and his deeds."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Mesopotamian inventions included which of the following?", "type": "Multiple Choice", "options": ["The wheel", "The plow", "The sailboat", "Gunpowder"], "correct_answer": ["The wheel", "The plow", "The sailboat"], "feedback": "These innovations supported farming, transport, and trade."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Who created the world\u2019s first empire in Mesopotamia?", "type": "Single Choice", "options": ["Hammurabi", "Nebuchadnezzar", "Sargon", "Gilgamesh"], "correct_answer": "Sargon", "feedback": "Sargon of Akkad conquered Mesopotamia about 2340 B.C."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Hammurabi is best remembered for his:", "type": "Single Choice", "options": ["Laws", "Writing", "Palaces", "Calendar"], "correct_answer": "Laws", "feedback": "Hammurabi created a code of laws for Babylon."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "Assyrian kings divided their empire into political districts called:", "type": "Short Answer", "options": [], "correct_answer": "Provinces", "feedback": "Provinces were ruled by officials who collected taxes and enforced laws."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "The Assyrians built one of the world\u2019s first great libraries in:", "type": "Single Choice", "options": ["Babylon", "Nineveh", "Uruk", "Jericho"], "correct_answer": "Nineveh", "feedback": "The Assyrian library at Nineveh held thousands of clay tablets."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "The Chaldeans were the first to create a calendar with a:", "type": "Single Choice", "options": ["Five-day week", "Seven-day week", "Ten-day week", "Twelve-day week"], "correct_answer": "Seven-day week", "feedback": "Chaldean astronomers studied the sky and developed the seven-day week."}, {"subject": "History", "section": "Section 1 - Book Reading", "question": "The Chaldeans built the Hanging Gardens of:", "type": "Single Choice", "options": ["Babylon", "Uruk", "Nineveh", "Jericho"], "correct_answer": "Babylon", "feedback": "The Hanging Gardens of Babylon were a wonder of the ancient world."}], "Chapter 1 - Study Guide": [{"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Fossils are the preserved remains or traces of plants and animals.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Fossils are preserved remains/traces of organisms."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Which term means an early human-made weapon or tool?", "type": "Single Choice", "options": ["Fossil", "Artifact", "Scribe", "Caravan"], "correct_answer": "Artifact", "feedback": "Artifacts are early human-made objects (tools, weapons)."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "What do we call a person who moves from place to place?", "type": "Single Choice", "options": ["Nomad", "Scribe", "Artisan", "Caravan"], "correct_answer": "Nomad", "feedback": "Nomads move from place to place."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "An anthropologist primarily studies:", "type": "Single Choice", "options": ["Human societies", "Ancient plants", "Volcanoes", "Stars"], "correct_answer": "Human societies", "feedback": "Anthropologists study human societies and cultures."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "An archaeologist\u2019s work focuses on:", "type": "Single Choice", "options": ["Hunting for evidence of human settlements", "Writing new laws", "Mapping constellations", "Studying languages"], "correct_answer": "Hunting for evidence of human settlements", "feedback": "Archaeologists excavate and analyze past human settlements."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "\u201cMesopotamia\u201d literally means:", "type": "Single Choice", "options": ["Land beyond mountains", "Land between rivers", "People of the rivers", "Blessed valley"], "correct_answer": "Land between rivers", "feedback": "Mesopotamia = \u201cland between rivers.\u201d"}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "The wedge-shaped writing system of ancient Sumer is called:", "type": "Single Choice", "options": ["Hieroglyphics", "Cyrillic", "Cuneiform", "Linear B"], "correct_answer": "Cuneiform", "feedback": "Cuneiform is the Sumerian writing system."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Irrigation is a system designed to bring water to crops.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "That is the definition of irrigation."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "A complex society with government, culture, and writing is called a:", "type": "Single Choice", "options": ["Ziggurat", "Civilization", "Nation-state", "Village"], "correct_answer": "Civilization", "feedback": "Civilization = complex society with government, culture, writing."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "A temple built in Sumer to honor the gods was called a:", "type": "Single Choice", "options": ["Ziggurat", "Forum", "Stoa", "Pyramid"], "correct_answer": "Ziggurat", "feedback": "Ziggurats were temple complexes."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Skilled workers who made metal products, cloth, or pottery were called:", "type": "Single Choice", "options": ["Scribes", "Artisans", "Makers"], "correct_answer": "Artisans", "feedback": "Artisans were skilled craft workers."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "In early civilizations, a person specially trained to write was called a:", "type": "Single Choice", "options": ["Scribe", "Pharaoh", "Priest", "Monarch"], "correct_answer": "Scribe", "feedback": "Scribes were trained writers."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Who was the Babylonian king known for his law code?", "type": "Single Choice", "options": ["Hammurabi", "Nebuchadnezzar", "Sargon", "Shamash"], "correct_answer": "Hammurabi", "feedback": "Hammurabi issued a famous law code."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "What was the capital of the Assyrian Empire?", "type": "Single Choice", "options": ["Babylon", "Ur", "Nineveh", "Assland"], "correct_answer": "Nineveh", "feedback": "Nineveh was the Assyrian capital."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Which Chaldean king rebuilt Babylon into a magnificent city?", "type": "Single Choice", "options": ["Hammurabi", "Cyrus", "Nebuchadnezzar", "Darius"], "correct_answer": "Nebuchadnezzar", "feedback": "Nebuchadnezzar II was the great Chaldean king."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Traveling groups of merchants in the ancient Near East were called:", "type": "Single Choice", "options": ["Caravans", "Legions", "Guilds", "Columns"], "correct_answer": "Caravans", "feedback": "Caravans transported goods long distances."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "The Persians eventually captured Babylon.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The Persian Empire conquered Babylon."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "What made the Assyrian army particularly strong?", "type": "Single Choice", "options": ["Bronze helmets", "Iron made stronger", "Chariots alone", "Elephant corps"], "correct_answer": "Iron made stronger", "feedback": "The Assyrians\u2019 ability to harden iron gave them an edge."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Where was Babylon located?", "type": "Single Choice", "options": ["On the Nile River", "On the Tigris River", "On the Euphrates River", "On the Indus River"], "correct_answer": "On the Euphrates River", "feedback": "Babylon was on the Euphrates River."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Which modern-day contribution is credited to the Chaldeans?", "type": "Single Choice", "options": ["Zero as a number", "Seven-day week calendar", "Alphabetic writing", "Paper money"], "correct_answer": "Seven-day week calendar", "feedback": "The Chaldeans are associated with a seven-day week."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Two major contributions of the Paleolithic Age were:", "type": "Single Choice", "options": ["Metal plows and cities", "Fire and language", "Wheels and writing", "Banks and coins"], "correct_answer": "Fire and language", "feedback": "Paleolithic innovations include control of fire and development of language."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "What kind of technology did Paleolithic people primarily use?", "type": "Single Choice", "options": ["Tools", "Gunpowder", "Machines", "Ships"], "correct_answer": "Tools", "feedback": "Paleolithic technology centered on tools."}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Why do historians consider the farming (Neolithic) revolution the most important event in human history?", "type": "Multiple Choice", "options": ["It provided a steady food supply so the population grew.", "It allowed people to settle in one place and build homes.", "The larger population led to better security.", "It led to specialization such as crafts, arts, and tool making.", "old mcdonald had a farm would never have been known without it"], "correct_answer": ["It provided a steady food supply so the population grew.", "It allowed people to settle in one place and build homes.", "The larger population led to better security.", "It led to specialization such as crafts, arts, and tool making."], "feedback": "All of these except Old McDonald is correct!"}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Type the term for \u201ctemples built to honor gods.\u201d", "type": "Short Answer", "options": ["[n/a]"], "correct_answer": "Ziggurat", "feedback": "Answer is \u201cZiggurat.\u201d"}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Type the writing system used in ancient Sumer (wedge-shaped).", "type": "Short Answer", "options": ["[n/a]"], "correct_answer": "Cuneiform", "feedback": "Answer is \u201cCuneiform.\u201d"}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Type the word that means \u201cperson who moves from place to place.\u201d", "type": "Short Answer", "options": ["[n/a]"], "correct_answer": "Nomad", "feedback": "Answer is \u201cNomad.\u201d"}, {"subject": "History", "section": "Chapter 1 - Study Guide", "question": "Who captured Babylon from the Babylonians?", "type": "Single Choice", "options": ["Egyptians", "Persians", "Team Rocket", "Assyrians"], "correct_answer": "Persians", "feedback": "The Persian Empire conquered Babylon. The Assirians were destroyed by the babylondians long before that."}]}, "Testing": {"test": [{"subject": "Testing", "section": "test", "question": "This is a test?", "type": "Single Choice", "options": ["No", "No No", "Bulbasaur", "Yes"], "correct_answer": "Yes", "feedback": "The  test works?!"}]}};
+
+
+let currentQuiz = [];
+let currentIndex = 0;
+let userAnswers = [];
+let showFeedback = true;
+
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Debug: Check if data loaded
+    console.log('ALL_QUESTIONS:', ALL_QUESTIONS);
+    console.log('Subjects found:', Object.keys(ALL_QUESTIONS));
+
+    // Initialize - populate subjects
+    const subjects = Object.keys(ALL_QUESTIONS).sort();
+    const subjectSelect = document.getElementById('subject-select');
+
+    if (!subjectSelect) {
+        console.error('subject-select element not found!');
+        return;
+    }
+
+    if (subjects.length === 0) {
+        console.error('No subjects found in data!');
+        subjectSelect.innerHTML = '<option value="">No subjects found - check data</option>';
+    } else {
+        console.log('Populating', subjects.length, 'subjects');
+        subjects.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s;
+            opt.textContent = s;
+            subjectSelect.appendChild(opt);
+        });
+    }
+
+    // When subject changes, show sections
+    subjectSelect.addEventListener('change', (e) => {
+        const subject = e.target.value;
+        const sectionsList = document.getElementById('sections-list');
+        sectionsList.innerHTML = '';
+
+        if (!subject) return;
+
+        const sections = Object.keys(ALL_QUESTIONS[subject]).sort();
+        sections.forEach(section => {
+            const label = document.createElement('label');
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.value = section;
+            label.appendChild(cb);
+            label.appendChild(document.createTextNode(' ' + section));
+            sectionsList.appendChild(label);
+        });
+    });
+
+    // Start quiz
+    document.getElementById('start-quiz-btn').addEventListener('click', () => {
+        const subject = subjectSelect.value;
+    const selectedSections = Array.from(document.querySelectorAll('#sections-list input:checked')).map(cb => cb.value);
+    showFeedback = document.getElementById('show-feedback').checked;
+
+    if (!subject || selectedSections.length === 0) {
+        alert('Please select a subject and at least one section');
+        return;
+    }
+
+    // Build quiz with selected sections
+    currentQuiz = [];
+    selectedSections.forEach(section => {
+        currentQuiz.push(...ALL_QUESTIONS[subject][section]);
+    });
+
+    // Shuffle questions every time
+    for (let i = currentQuiz.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
+    }
+
+    // Shuffle options for each question
+    currentQuiz.forEach(q => {
+        if (q.options && q.options.length > 0) {
+            q.shuffledOptions = [...q.options];
+            for (let i = q.shuffledOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [q.shuffledOptions[i], q.shuffledOptions[j]] = [q.shuffledOptions[j], q.shuffledOptions[i]];
+            }
+        }
+    });
+
+    userAnswers = new Array(currentQuiz.length).fill(null);
+    currentIndex = 0;
+
+    document.getElementById('setup-screen').classList.add('hidden');
+    document.getElementById('quiz-screen').classList.remove('hidden');
+    document.getElementById('total').textContent = currentQuiz.length;
+    showQuestion(0);
+    });
+
+    // Back button
+    document.getElementById('back-btn').addEventListener('click', () => {
+        if (confirm('Are you sure? Your progress will be lost.')) {
+            location.reload();
+        }
+    });
+}); // End DOMContentLoaded
+
+function showQuestion(index) {
+    currentIndex = index;
+    const q = currentQuiz[index];
+
+    document.getElementById('current').textContent = index + 1;
+
+    const container = document.getElementById('question-container');
+    container.innerHTML = '';
+
+    const qText = document.createElement('div');
+    qText.className = 'question-text';
+    qText.textContent = (index + 1) + '. ' + q.question;
+    container.appendChild(qText);
+
+    if (q.type === 'Short Answer') {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'answer-input';
+        input.value = userAnswers[index] || '';
+        input.addEventListener('input', (e) => {
+            userAnswers[index] = e.target.value;
+            updateNavButton();
+        });
+        container.appendChild(input);
+    } else {
+        const ul = document.createElement('ul');
+        ul.className = 'options-list';
+        const inputType = q.type === 'Multiple Choice' ? 'checkbox' : 'radio';
+        const options = q.shuffledOptions || q.options;
+
+        options.forEach(opt => {
+            const li = document.createElement('li');
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+            input.type = inputType;
+            input.name = 'q' + index;
+            input.value = opt;
+
+            if (q.type === 'Multiple Choice') {
+                const current = userAnswers[index] || [];
+                input.checked = current.includes(opt);
+                input.addEventListener('change', (e) => {
+                    if (!userAnswers[index]) userAnswers[index] = [];
+                    if (e.target.checked) {
+                        if (!userAnswers[index].includes(opt)) userAnswers[index].push(opt);
+                    } else {
+                        userAnswers[index] = userAnswers[index].filter(a => a !== opt);
+                    }
+                    updateNavButton();
+                });
+            } else {
+                input.checked = userAnswers[index] === opt;
+                input.addEventListener('change', (e) => {
+                    if (e.target.checked) userAnswers[index] = opt;
+                    updateNavButton();
+                });
+            }
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(opt));
+            li.appendChild(label);
+            ul.appendChild(li);
+        });
+        container.appendChild(ul);
+    }
+
+    // Show existing feedback if revisiting
+    if (showFeedback && userAnswers[index] !== null && container.querySelector('.feedback') === null) {
+        const existing = document.getElementById('question-container').dataset.feedbackShown;
+        if (existing === String(index)) {
+            showQuestionFeedback(index);
+        }
+    }
+
+    updateNavButton();
+}
+
+function showQuestionFeedback(index) {
+    const q = currentQuiz[index];
+    const userAns = userAnswers[index];
+    const container = document.getElementById('question-container');
+
+    if (container.querySelector('.feedback')) return;
+
+    const isCorrect = gradeAnswer(q, userAns);
+    const feedback = document.createElement('div');
+    feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+
+    if (isCorrect) {
+        feedback.innerHTML = '<strong>✓ Correct!</strong>';
+    } else {
+        feedback.innerHTML = '<strong>✗ Incorrect.</strong> Correct: ' + formatAnswer(q.correct_answer);
+    }
+
+    if (q.feedback) {
+        feedback.innerHTML += '<br><br>' + q.feedback;
+    }
+
+    container.appendChild(feedback);
+    container.dataset.feedbackShown = index;
+}
+
+function updateNavButton() {
+    const btn = document.getElementById('next-btn');
+    const feedbackExists = document.getElementById('question-container').querySelector('.feedback');
+
+    if (showFeedback && userAnswers[currentIndex] !== null && !feedbackExists) {
+        btn.textContent = 'Check Answer';
+        btn.onclick = () => {
+            showQuestionFeedback(currentIndex);
+            updateNavButton();
+        };
+    } else if (currentIndex < currentQuiz.length - 1) {
+        btn.textContent = 'Next →';
+        btn.onclick = () => showQuestion(currentIndex + 1);
+    } else {
+        btn.textContent = 'Finish Quiz';
+        btn.onclick = finishQuiz;
+    }
+}
+
+function gradeAnswer(q, userAns) {
+    if (!userAns) return false;
+    if (q.type === 'Multiple Choice') {
+        const correct = new Set(Array.isArray(q.correct_answer) ? q.correct_answer : q.correct_answer.split(';').map(a => a.trim()));
+        const user = new Set(Array.isArray(userAns) ? userAns : [userAns]);
+        return correct.size === user.size && [...correct].every(a => user.has(a));
+    }
+    if (q.type === 'Short Answer') {
+        return String(q.correct_answer).trim().toLowerCase() === String(userAns).trim().toLowerCase();
+    }
+    return String(q.correct_answer) === String(userAns);
+}
+
+function formatAnswer(ans) {
+    return Array.isArray(ans) ? ans.join('; ') : ans;
+}
+
+function finishQuiz() {
+    let correct = 0;
+    currentQuiz.forEach((q, i) => {
+        if (gradeAnswer(q, userAnswers[i])) correct++;
+    });
+
+    const results = document.getElementById('results');
+    const pct = Math.round((correct / currentQuiz.length) * 100);
+
+    let html = '<div class="score-summary">Score: ' + correct + '/' + currentQuiz.length + ' (' + pct + '%)</div>';
+
+    currentQuiz.forEach((q, i) => {
+        const isCorrect = gradeAnswer(q, userAnswers[i]);
+        html += '<div class="result-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
+        html += '<div style="font-weight:bold">' + (i+1) + '. ' + q.question + '</div>';
+        html += '<div>Your answer: ' + formatAnswer(userAnswers[i] || '(no answer)') + '</div>';
+        if (!isCorrect) {
+            html += '<div style="color:#28a745">Correct: ' + formatAnswer(q.correct_answer) + '</div>';
+        }
+        if (q.feedback) {
+            html += '<div class="feedback">' + q.feedback + '</div>';
+        }
+        html += '</div>';
+    });
+
+    html += '<button class="btn-primary" onclick="location.reload()">New Quiz</button>';
+
+    results.innerHTML = html;
+    results.classList.remove('hidden');
+    document.getElementById('question-container').classList.add('hidden');
+    document.getElementById('next-btn').classList.add('hidden');
+}
+
+
+// Service worker
+if ('serviceWorker' in navigator) {
+    const swCode = `
+self.addEventListener('install', (event) => {
+    event.waitUntil(caches.open('quiz-v1').then(cache => cache.addAll(['/'])));
+});
+self.addEventListener('fetch', (event) => {
+    event.respondWith(caches.match(event.request).then(r => r || fetch(event.request)));
+});
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob));
+}
+    </script>
+</body>
+</html>
