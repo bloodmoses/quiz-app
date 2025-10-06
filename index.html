@@ -13,164 +13,232 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #1d1d1f;
+    background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 25%, #6C5B7B 50%, #355C7D 100%);
     min-height: 100vh;
     padding: 20px;
 }
 .container {
     max-width: 700px;
     margin: 0 auto;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.1);
+}
+.header {
+    text-align: center;
+    margin-bottom: 32px;
 }
 h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 30px;
+    color: #1d1d1f;
+    margin-bottom: 8px;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+.subtitle {
+    font-size: 15px;
+    font-style: italic;
+    color: #86868b;
+    font-weight: 400;
 }
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 600;
-    color: #555;
+    color: #1d1d1f;
 }
 .form-control {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 14px;
+    border: 2px solid #d2d2d7;
+    border-radius: 12px;
     font-size: 16px;
+    background: #f5f5f7;
+    transition: all 0.25s ease;
+}
+.form-control:focus {
+    outline: none;
+    border-color: #FF6B9D;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
 }
 .checkbox-list {
     max-height: 300px;
     overflow-y: auto;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
+    border: 2px solid #d2d2d7;
+    border-radius: 12px;
+    padding: 12px;
+    background: #f5f5f7;
 }
 .checkbox-list label {
     display: block;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
     font-weight: normal;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 .checkbox-list label:hover {
-    background: #f0f0ff;
+    background: rgba(255, 107, 157, 0.1);
+}
+.checkbox-list input {
+    margin-right: 10px;
+    accent-color: #FF6B9D;
 }
 .btn-primary {
     width: 100%;
-    padding: 15px;
-    background: #667eea;
+    padding: 16px;
+    background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
 }
 .btn-primary:hover {
-    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+}
+.btn-primary:active {
+    transform: translateY(0);
 }
 .btn-back {
-    padding: 8px 16px;
-    background: #95a5a6;
+    padding: 10px 18px;
+    background: #86868b;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.btn-back:hover {
+    background: #6e6e73;
+    transform: translateY(-1px);
 }
 .hidden { display: none !important; }
 .quiz-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 .quiz-progress {
-    color: #7f8c8d;
+    color: #86868b;
     font-size: 14px;
+    font-weight: 500;
 }
 #question-container {
     margin: 30px 0;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
+    padding: 24px;
+    background: #f5f5f7;
+    border-radius: 12px;
 }
 .question-text {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    margin-bottom: 20px;
-    color: #2c3e50;
+    margin-bottom: 24px;
+    color: #1d1d1f;
+    letter-spacing: -0.3px;
 }
 .options-list {
     list-style: none;
 }
 .options-list li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 .options-list label {
     display: flex;
     align-items: center;
-    padding: 12px;
+    padding: 16px;
     background: white;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    border: 2px solid transparent;
+    border-radius: 12px;
     cursor: pointer;
+    transition: all 0.25s ease;
 }
 .options-list label:hover {
-    border-color: #667eea;
-    background: #f0f0ff;
+    border-color: #FF6B9D;
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
 }
-.options-list input { margin-right: 10px; }
+.options-list input {
+    margin-right: 12px;
+    accent-color: #FF6B9D;
+}
 .answer-input {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 16px;
+    border: 2px solid #d2d2d7;
+    border-radius: 12px;
     font-size: 16px;
+    background: #f5f5f7;
+    transition: all 0.25s ease;
+}
+.answer-input:focus {
+    outline: none;
+    border-color: #FF6B9D;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
 }
 .feedback {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 4px solid #ffc107;
-    background: #fff3cd;
+    margin-top: 24px;
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 4px solid #FFC107;
+    background: rgba(255, 193, 7, 0.15);
 }
 .feedback.correct {
-    background: #d4edda;
-    border-left-color: #28a745;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-left-color: #34C759;
 }
 .feedback.incorrect {
-    background: #f8d7da;
-    border-left-color: #dc3545;
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border-left-color: #FF3B30;
 }
 .nav-buttons {
-    margin-top: 20px;
+    margin-top: 24px;
 }
 #results {
-    margin-top: 30px;
+    margin-top: 32px;
 }
 .score-summary {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
-    color: #2c3e50;
+    margin-bottom: 24px;
+    color: #1d1d1f;
+    letter-spacing: -0.5px;
 }
 .result-item {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #ddd;
+    margin-bottom: 16px;
+    padding: 20px;
+    background: #f5f5f7;
+    border-radius: 12px;
+    border-left: 4px solid #d2d2d7;
+    transition: all 0.25s ease;
 }
-.result-item.correct { border-left-color: #28a745; }
-.result-item.incorrect { border-left-color: #dc3545; }
+.result-item:hover {
+    transform: translateX(4px);
+}
+.result-item.correct {
+    border-left-color: #34C759;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+.result-item.incorrect {
+    border-left-color: #FF3B30;
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
 
     </style>
 </head>
@@ -178,7 +246,10 @@ h1 {
     <div class="container">
         <!-- Setup Screen -->
         <div id="setup-screen">
-            <h1>📚 Study Quiz</h1>
+            <div class="header">
+                <h1>Quiz Maker 2.0</h1>
+                <p class="subtitle">A Steve and Elijah Pearse Project</p>
+            </div>
 
             <div class="form-group">
                 <label>Subject:</label>
