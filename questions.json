@@ -1,0 +1,1145 @@
+[
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What term describes the role of an organism in its habitat?",
+    "feedback": "A niche is an organism's role in its habitat, including how it gets food and survives.",
+    "type": "Single Choice",
+    "options": [
+      "Population",
+      "Niche",
+      "Predation",
+      "Succession"
+    ],
+    "correct_answer": "Niche"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "A niche includes how an organism gets food, when and how it reproduces, and the physical conditions it needs to survive.",
+    "feedback": "The lesson defines a niche as much more than just where an organism lives.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What is competition in an ecosystem?",
+    "feedback": "Competition happens when organisms use the same limited resources.",
+    "type": "Single Choice",
+    "options": [
+      "The struggle between organisms to survive using the same limited resources",
+      "A relationship in which both species benefit",
+      "A series of predictable changes in a community over time",
+      "The disappearance of a species from Earth"
+    ],
+    "correct_answer": "The struggle between organisms to survive using the same limited resources"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Species that share a habitat often have adaptations that help reduce competition.",
+    "feedback": "The slides explain that shared habitats often lead to adaptations that reduce competition.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "In a predator-prey relationship, the organism that is hunted is called the ____.",
+    "feedback": "The predator does the hunting; the prey is hunted.",
+    "type": "Short Answer",
+    "options": null,
+    "correct_answer": "prey"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What is predation?",
+    "feedback": "Predation is an interaction in which a predator kills prey for food or nutrients.",
+    "type": "Single Choice",
+    "options": [
+      "A relationship in which one organism kills another for food or nutrients",
+      "A relationship in which one organism benefits and the other is unaffected",
+      "A form of succession that happens after a fire",
+      "The movement of organisms to a new habitat"
+    ],
+    "correct_answer": "A relationship in which one organism kills another for food or nutrients"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Camouflage, warning coloration, and protective coverings can help prey avoid being killed.",
+    "feedback": "These are examples of prey adaptations that improve survival.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Symbiosis is:",
+    "feedback": "The lesson defines symbiosis as any close relationship between two species.",
+    "type": "Single Choice",
+    "options": [
+      "Any relationship in which two species live closely together",
+      "A type of competition for food",
+      "A rapid change in climate",
+      "The first stage of succession"
+    ],
+    "correct_answer": "Any relationship in which two species live closely together"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which symbiotic relationship benefits one species while the other species is neither helped nor harmed?",
+    "feedback": "In commensalism, one species benefits and the other is unaffected.",
+    "type": "Single Choice",
+    "options": [
+      "Commensalism",
+      "Mutualism",
+      "Parasitism",
+      "Predation"
+    ],
+    "correct_answer": "Commensalism"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which symbiotic relationship benefits both species?",
+    "feedback": "Mutualism means both species benefit from the relationship.",
+    "type": "Single Choice",
+    "options": [
+      "Commensalism",
+      "Mutualism",
+      "Parasitism",
+      "Competition"
+    ],
+    "correct_answer": "Mutualism"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which relationship involves one organism living on, in, or inside another organism and harming it?",
+    "feedback": "Parasitism benefits one organism while harming the host.",
+    "type": "Single Choice",
+    "options": [
+      "Commensalism",
+      "Mutualism",
+      "Parasitism",
+      "Predation"
+    ],
+    "correct_answer": "Parasitism"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Primary succession occurs in an area where:",
+    "feedback": "Primary succession starts where there is no soil and no existing community.",
+    "type": "Single Choice",
+    "options": [
+      "No soil or organisms exist",
+      "A fire has left the soil in place",
+      "A predator has removed prey",
+      "Two species share a niche"
+    ],
+    "correct_answer": "No soil or organisms exist"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which organisms are commonly pioneer species during primary succession?",
+    "feedback": "Pioneer species are usually lichens and mosses, which help begin soil formation.",
+    "type": "Multiple Choice",
+    "options": [
+      "Lichens",
+      "Mosses",
+      "Oak trees",
+      "Wolves"
+    ],
+    "correct_answer": [
+      "Lichens",
+      "Mosses"
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Secondary succession happens more quickly than primary succession because soil is already present.",
+    "feedback": "Secondary succession begins after a disturbance in an area where soil already exists.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Longleaf pine trees are adapted to survive regular:",
+    "feedback": "Longleaf pines depend on regular forest fires and have traits that help them survive them.",
+    "type": "Single Choice",
+    "options": [
+      "Forest fires",
+      "Avalanches",
+      "Tsunamis",
+      "Blizzards"
+    ],
+    "correct_answer": "Forest fires"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Biodiversity is the:",
+    "feedback": "Healthy ecosystems have biodiversity, meaning many kinds of species.",
+    "type": "Single Choice",
+    "options": [
+      "Number and variety of different species in an area",
+      "Amount of rainfall in a region",
+      "Population size of one species",
+      "Rate of succession in a habitat"
+    ],
+    "correct_answer": "Number and variety of different species in an area"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "A keystone species is a species that:",
+    "feedback": "Keystone species help maintain ecosystem balance because many species depend on them.",
+    "type": "Single Choice",
+    "options": [
+      "Influences the survival of many other species in an ecosystem",
+      "Always lives at the top of a food chain",
+      "Can survive without any competition",
+      "Only lives in forests"
+    ],
+    "correct_answer": "Influences the survival of many other species in an ecosystem"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Greater genetic diversity makes a species more likely to adapt and survive environmental change.",
+    "feedback": "More genetic variation improves a species' chances of adapting to new conditions.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What is extinction?",
+    "feedback": "Extinction means an entire species is gone from Earth.",
+    "type": "Single Choice",
+    "options": [
+      "The disappearance of all members of a species from Earth",
+      "A stable ecosystem with many species",
+      "A temporary drop in population size",
+      "A relationship between predator and prey"
+    ],
+    "correct_answer": "The disappearance of all members of a species from Earth"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Resources that are used but not consumed, such as shade from trees or recreation in habitats, have:",
+    "feedback": "Indirect value comes from benefits we use without consuming the resource itself.",
+    "type": "Single Choice",
+    "options": [
+      "Indirect value",
+      "Direct value",
+      "Genetic value",
+      "Competitive value"
+    ],
+    "correct_answer": "Indirect value"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Mass extinction differs from background extinction because mass extinction:",
+    "feedback": "Mass extinctions affect many species quickly, unlike background extinction.",
+    "type": "Single Choice",
+    "options": [
+      "Kills many different species in a short time",
+      "Usually affects only one species over a long period",
+      "Always happens because of one predator",
+      "Only happens in the ocean"
+    ],
+    "correct_answer": "Kills many different species in a short time"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which human activity can reduce biodiversity?",
+    "feedback": "Removing habitats and natural resources can reduce biodiversity.",
+    "type": "Single Choice",
+    "options": [
+      "Deforestation",
+      "Pollination",
+      "Nutrient cycling",
+      "Seed dispersal"
+    ],
+    "correct_answer": "Deforestation"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome was built near which river?",
+    "feedback": "Rome grew beside the Tiber River at an easy crossing point.",
+    "type": "Single Choice",
+    "options": [
+      "Nile River",
+      "Tiber River",
+      "Danube River",
+      "Euphrates River"
+    ],
+    "correct_answer": "Tiber River"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome's seven hills made the city easier to defend from attack.",
+    "feedback": "The steep hills helped protect the city.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Compared with Greece, Italy helped Rome grow because Italy had:",
+    "feedback": "Italy could support more people, and its geography did not isolate communities as much as Greece did.",
+    "type": "Single Choice",
+    "options": [
+      "Better farmland and mountains that were easier to cross",
+      "More deserts and fewer rivers",
+      "No nearby seas for trade",
+      "Only small isolated valleys"
+    ],
+    "correct_answer": "Better farmland and mountains that were easier to cross"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Which people changed Rome from a village of huts into a city with streets, temples, and public buildings?",
+    "feedback": "The Etruscans strongly influenced early Roman development.",
+    "type": "Single Choice",
+    "options": [
+      "Persians",
+      "Etruscans",
+      "Carthaginians",
+      "Hebrews"
+    ],
+    "correct_answer": "Etruscans"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "According to Roman legend, who founded Rome in 753 B.C.?",
+    "feedback": "Roman tradition says Romulus founded the city after quarreling with Remus.",
+    "type": "Single Choice",
+    "options": [
+      "Aeneas",
+      "Hannibal",
+      "Romulus",
+      "Cincinnatus"
+    ],
+    "correct_answer": "Romulus"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome became a republic in 509 B.C. after the Romans overthrew Etruscan rule.",
+    "feedback": "The republic replaced the Etruscan kings.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The smaller Roman army groups that could move quickly through enemy lines were called ____.",
+    "feedback": "Roman armies were reorganized into legions for flexibility and control.",
+    "type": "Short Answer",
+    "options": null,
+    "correct_answer": "legions"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "What were Rome's wealthy landowners and nobles called?",
+    "feedback": "Patricians made up Rome's ruling class.",
+    "type": "Single Choice",
+    "options": [
+      "Plebeians",
+      "Patricians",
+      "Praetors",
+      "Allies"
+    ],
+    "correct_answer": "Patricians"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "In the Roman Republic, the top government officials were the:",
+    "feedback": "Two consuls headed the army and ran the government.",
+    "type": "Single Choice",
+    "options": [
+      "Consuls",
+      "Praetors",
+      "Tribunes",
+      "Senators"
+    ],
+    "correct_answer": "Consuls"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Each Roman consul could veto the other consul's decisions.",
+    "feedback": "The veto helped keep either consul from becoming too powerful.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome's first written code of laws was called the:",
+    "feedback": "The Twelve Tables were Rome's first written laws and became the basis of later Roman law.",
+    "type": "Single Choice",
+    "options": [
+      "Law of Nations",
+      "Julian Code",
+      "Twelve Tables",
+      "Code of Hammurabi"
+    ],
+    "correct_answer": "Twelve Tables"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The Law of Nations helped spread the idea that accused people could defend themselves and were innocent until proven guilty.",
+    "feedback": "Roman law promoted principles of justice that influenced later legal systems.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The First Punic War began because Rome and Carthage both wanted control of:",
+    "feedback": "Control of Sicily led Rome and Carthage into war in 264 B.C.",
+    "type": "Single Choice",
+    "options": [
+      "Sicily",
+      "Egypt",
+      "Gaul",
+      "Greece"
+    ],
+    "correct_answer": "Sicily"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Hannibal attacked Italy by crossing the Alps during the Second Punic War.",
+    "feedback": "Hannibal marched from Spain over the Alps into Italy.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "At which battle did Hannibal hand Rome one of its worst defeats in 216 B.C.?",
+    "feedback": "The Roman army suffered a devastating loss at Cannae.",
+    "type": "Single Choice",
+    "options": [
+      "Zama",
+      "Actium",
+      "Cannae",
+      "Adrianople"
+    ],
+    "correct_answer": "Cannae"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "A political alliance of three people is called a:",
+    "feedback": "Crassus, Pompey, and Caesar formed the First Triumvirate.",
+    "type": "Single Choice",
+    "options": [
+      "Republic",
+      "Triumvirate",
+      "Legion",
+      "Province"
+    ],
+    "correct_answer": "Triumvirate"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The phrase \"crossing the Rubicon\" means making a decision that cannot be taken back.",
+    "feedback": "Caesar crossed the Rubicon knowing it would trigger civil war.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Who defeated Antony and Cleopatra at the Battle of Actium?",
+    "feedback": "Octavian won at Actium and became the strongest leader in Rome.",
+    "type": "Single Choice",
+    "options": [
+      "Hannibal",
+      "Octavian",
+      "Cicero",
+      "Scipio"
+    ],
+    "correct_answer": "Octavian"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Who became Rome's first emperor?",
+    "feedback": "Octavian took the title Augustus and became Rome's first emperor.",
+    "type": "Single Choice",
+    "options": [
+      "Julius Caesar",
+      "Augustus",
+      "Nero",
+      "Tiberius"
+    ],
+    "correct_answer": "Augustus"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "What does Pax Romana mean?",
+    "feedback": "Pax Romana was the long era of peace and prosperity that began under Augustus.",
+    "type": "Single Choice",
+    "options": [
+      "Roman Law",
+      "Roman Peace",
+      "Roman Senate",
+      "Roman Army"
+    ],
+    "correct_answer": "Roman Peace"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Augustus made the tax system fairer by turning tax collectors into permanent government workers.",
+    "feedback": "This reform reduced corruption in tax collecting.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Plebeians included artisans, shopkeepers, and owners of small farms.",
+    "feedback": "Plebeians were most of Rome's people, though they had less social status than patricians.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The Romans borrowed many ideas from the Greeks but changed them to fit Roman needs.",
+    "feedback": "Romans admired Greek culture, but they adapted it for practical Roman use.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Roman statues often looked different from Greek statues because Roman statues were more:",
+    "feedback": "Roman artists showed wrinkles and other real features rather than ideal perfection.",
+    "type": "Single Choice",
+    "options": [
+      "Realistic",
+      "Mythical",
+      "Colorful",
+      "Gigantic"
+    ],
+    "correct_answer": "Realistic"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which Roman building feature helped support bridges, aqueducts, and buildings?",
+    "feedback": "Romans were the first to make full use of the arch.",
+    "type": "Single Choice",
+    "options": [
+      "Arch",
+      "Pyramid",
+      "Moat",
+      "Terrace"
+    ],
+    "correct_answer": "Arch"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Who wrote the Aeneid?",
+    "feedback": "Virgil's Aeneid told the story of Aeneas and Rome's legendary beginnings.",
+    "type": "Single Choice",
+    "options": [
+      "Livy",
+      "Virgil",
+      "Horace",
+      "Tacitus"
+    ],
+    "correct_answer": "Virgil"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Horace was known for writing:",
+    "feedback": "Horace wrote works that mocked human weakness and poems expressing strong feelings.",
+    "type": "Single Choice",
+    "options": [
+      "Satires and odes",
+      "Law codes and speeches",
+      "Maps of the stars",
+      "Medical textbooks"
+    ],
+    "correct_answer": "Satires and odes"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Galen emphasized anatomy and learned about inner organs by cutting open dead animals.",
+    "feedback": "Galen's medical ideas influenced doctors for more than 1,500 years.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Ptolemy is remembered for:",
+    "feedback": "Ptolemy carefully mapped stars and created rules to explain heavenly motion.",
+    "type": "Single Choice",
+    "options": [
+      "Mapping over 1,000 stars and studying the movements of planets and stars",
+      "Leading a slave revolt",
+      "Writing the Aeneid",
+      "Designing the Colosseum"
+    ],
+    "correct_answer": "Mapping over 1,000 stars and studying the movements of planets and stars"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The open area at the center of a Roman city used as a marketplace and public square was the:",
+    "feedback": "The Forum was the center of public life in many Roman cities.",
+    "type": "Single Choice",
+    "options": [
+      "Forum",
+      "Pantheon",
+      "Circus",
+      "Villa"
+    ],
+    "correct_answer": "Forum"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Most poor Romans in the city lived in crowded apartment buildings, often in only one room.",
+    "feedback": "High rent forced many poor families into cramped apartments.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The head of a Roman household was called the:",
+    "feedback": "The paterfamilias had authority over the family.",
+    "type": "Single Choice",
+    "options": [
+      "Consul",
+      "Paterfamilias",
+      "Praetor",
+      "Gladiator"
+    ],
+    "correct_answer": "Paterfamilias"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Spartacus led a revolt of enslaved people in Italy.",
+    "feedback": "Spartacus led a major slave revolt beginning in 73 B.C.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Inflation is:",
+    "feedback": "Rome suffered inflation when its coins lost value and prices rose.",
+    "type": "Single Choice",
+    "options": [
+      "Rapidly increasing prices",
+      "A decrease in trade",
+      "A type of Roman road",
+      "A system of writing laws"
+    ],
+    "correct_answer": "Rapidly increasing prices"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Barter means to:",
+    "feedback": "As Roman money lost value, many people returned to barter.",
+    "type": "Single Choice",
+    "options": [
+      "Exchange goods without using money",
+      "Pay taxes with gold coins",
+      "Trade only with foreign merchants",
+      "Use roads to move goods quickly"
+    ],
+    "correct_answer": "Exchange goods without using money"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which emperor divided the empire into four parts because it was too large for one ruler?",
+    "feedback": "Diocletian tried to reform the empire by dividing its administration.",
+    "type": "Single Choice",
+    "options": [
+      "Augustus",
+      "Diocletian",
+      "Constantine",
+      "Justinian"
+    ],
+    "correct_answer": "Diocletian"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Constantine made sure Christians could no longer be persecuted.",
+    "feedback": "Constantine supported freedom of religion and expanded opportunities for Christians.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which emperor split the Roman Empire into eastern and western parts after his death in A.D. 395?",
+    "feedback": "Theodosius divided the empire into two separate parts.",
+    "type": "Single Choice",
+    "options": [
+      "Marcus Aurelius",
+      "Theodosius",
+      "Alaric",
+      "Odoacer"
+    ],
+    "correct_answer": "Theodosius"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which Visigoth leader captured Rome in A.D. 410?",
+    "feedback": "Alaric led the Visigoths in the sack of Rome in 410.",
+    "type": "Single Choice",
+    "options": [
+      "Belisarius",
+      "Alaric",
+      "Theodoric",
+      "Commodus"
+    ],
+    "correct_answer": "Alaric"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Historians often mark the fall of the Western Roman Empire in A.D. 476 when Odoacer overthrew Romulus Augustulus.",
+    "feedback": "Odoacer's overthrow of the last western emperor is the usual marker for Rome's fall in the West.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Why was the Justinian Code important?",
+    "feedback": "The Justinian Code had a lasting influence on laws across Europe.",
+    "type": "Single Choice",
+    "options": [
+      "It simplified and reorganized Byzantine laws so people could understand them more easily",
+      "It created the first Roman army",
+      "It ended trade with Asia",
+      "It replaced Christianity with Roman gods"
+    ],
+    "correct_answer": "It simplified and reorganized Byzantine laws so people could understand them more easily"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Theodora persuaded Justinian to stay in Constantinople and crush an uprising instead of fleeing.",
+    "feedback": "Theodora's advice helped Justinian keep his throne and strengthen his rule.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Hagia Sophia means Holy ____.",
+    "feedback": "Hagia Sophia means ?Holy Wisdom.?",
+    "type": "Short Answer",
+    "options": null,
+    "correct_answer": "Wisdom"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Why was Constantinople especially wealthy?",
+    "feedback": "Its location on important waterways and trade routes made Constantinople rich.",
+    "type": "Single Choice",
+    "options": [
+      "It sat at major trade crossroads between Europe and Asia",
+      "It controlled all of Rome's gold mines",
+      "It had no taxes",
+      "It was hidden from invaders in the desert"
+    ],
+    "correct_answer": "It sat at major trade crossroads between Europe and Asia"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Byzantine mosaics were pictures made from many bits of colored glass or stone.",
+    "feedback": "Mosaics were a major Byzantine art form, especially in churches.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The Byzantine Empire preserved Greek culture and Roman law and lasted for about 1,000 years.",
+    "feedback": "Byzantium carried Roman and Greek traditions forward for centuries.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "Orders",
+    "question": "Order These",
+    "feedback": "This is first",
+    "type": "Ordering",
+    "items": [
+      "First",
+      "Second"
+    ],
+    "correct_order": [
+      0,
+      1
+    ]
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Place these major Roman events in chronological order:",
+    "feedback": "These events trace Rome's rise from republic to empire.",
+    "type": "Ordering",
+    "items": [
+      "Rome becomes a republic",
+      "Romans adopt the Twelve Tables",
+      "Rome destroys Carthage",
+      "Julius Caesar is assassinated",
+      "Octavian becomes Rome's first emperor"
+    ],
+    "correct_order": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "subject": "History",
+    "section": "Ancient China Review",
+    "question": "Match each term with its correct definition:",
+    "feedback": "Farmers produced food and supported the entire social structure.",
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Farmers",
+        "match": "Worked the land, made up most of the population, and grew millet, wheat, and rice."
+      },
+      {
+        "term": "Aristocrats",
+        "match": "Wealthy landowners whose power came from inheriting and controlling land."
+      },
+      {
+        "term": "Huang He River",
+        "match": "The Yellow River known for rich yellow silt and destructive flooding."
+      },
+      {
+        "term": "Legalism",
+        "match": "A philosophy teaching humans are naturally evil and need harsh laws to maintain order."
+      },
+      {
+        "term": "Daoism",
+        "match": "A philosophy encouraging harmony with nature and giving up worldly desires."
+      },
+      {
+        "term": "Buddhism",
+        "match": "A religion from India that spread to China and offered comfort during unrest."
+      },
+      {
+        "term": "Confucianism",
+        "match": "A philosophy based on duty, respect, and moral behavior in society."
+      },
+      {
+        "term": "Merchants",
+        "match": "Lowest-ranked social class that traded goods but had low respect."
+      },
+      {
+        "term": "Filial Piety",
+        "match": "The practice of respecting and obeying parents and elders."
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Match each ecosystem interaction term to its correct description:",
+    "feedback": "These terms describe major interactions and processes in Topic 6.",
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Competition",
+        "match": "The struggle between organisms to survive using the same limited resources"
+      },
+      {
+        "term": "Predation",
+        "match": "One organism kills another for food or nutrients"
+      },
+      {
+        "term": "Mutualism",
+        "match": "A symbiotic relationship in which both species benefit"
+      },
+      {
+        "term": "Commensalism",
+        "match": "A symbiotic relationship in which one species benefits and the other is neither helped nor harmed"
+      },
+      {
+        "term": "Parasitism",
+        "match": "A relationship in which one organism benefits while harming the host"
+      },
+      {
+        "term": "Diocletian",
+        "match": "Divided the empire into four parts in an effort to reform it"
+      },
+      {
+        "term": "Constantine",
+        "match": "Moved the capital to Constantinople and supported Christianity"
+      },
+      {
+        "term": "Justinian",
+        "match": "Reorganized Byzantine law into the Justinian Code"
+      },
+      {
+        "term": "Theodora",
+        "match": "Helped expand women's rights and urged Justinian to stay and fight an uprising"
+      }
+    ]
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "World Capitals",
+    "question": "Fill in the blanks about world capitals:",
+    "feedback": "These are four major world capitals. Many people mistakenly think Sydney is Australia's capital!",
+    "type": "Fill-Blank",
+    "text_with_blanks": "The capital of France is {{blank}}. Japan's capital city is {{blank}}. {{blank}} is the capital of Australia, not Sydney. The United Kingdom's capital is {{blank}}.",
+    "answers": [
+      "Paris",
+      "Tokyo",
+      "Canberra",
+      "London"
+    ],
+    "case_sensitive": false
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "Algebra",
+    "question": "Complete the quadratic formula:",
+    "feedback": "The quadratic formula is: x = (-b ± √(b² - 4ac)) / 2a",
+    "type": "Fill-Blank",
+    "text_with_blanks": "For equation ax² + bx + c = 0, the solutions are: x = {{blank}} ± √(b² - 4ac) / {{blank}}",
+    "answers": [
+      "-b",
+      "2a"
+    ],
+    "case_sensitive": false
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "States of Matter",
+    "question": "Sort these common substances by their state at room temperature (20°C/68°F):",
+    "feedback": "At room temperature, most metals are solid, water and mercury are liquid, and most atmospheric gases are gaseous.",
+    "type": "Categorization",
+    "categories": [
+      "Solid",
+      "Liquid",
+      "Gas"
+    ],
+    "items": [
+      {
+        "text": "Water (H₂O)",
+        "category": "Liquid"
+      },
+      {
+        "text": "Ice",
+        "category": "Solid"
+      },
+      {
+        "text": "Oxygen (O₂)",
+        "category": "Gas"
+      },
+      {
+        "text": "Iron (Fe)",
+        "category": "Solid"
+      },
+      {
+        "text": "Mercury (Hg)",
+        "category": "Liquid"
+      },
+      {
+        "text": "Nitrogen (N₂)",
+        "category": "Gas"
+      },
+      {
+        "text": "Table Salt (NaCl)",
+        "category": "Solid"
+      },
+      {
+        "text": "Alcohol (Ethanol)",
+        "category": "Liquid"
+      }
+    ]
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "Elements",
+    "question": "Categorize these elements by their group on the periodic table:",
+    "feedback": "Elements in the same group share similar chemical properties due to their electron configurations.",
+    "type": "Categorization",
+    "categories": [
+      "Noble Gases",
+      "Halogens",
+      "Alkali Metals",
+      "Alkaline Earth Metals"
+    ],
+    "items": [
+      {
+        "text": "Helium (He)",
+        "category": "Noble Gases"
+      },
+      {
+        "text": "Sodium (Na)",
+        "category": "Alkali Metals"
+      },
+      {
+        "text": "Chlorine (Cl)",
+        "category": "Halogens"
+      },
+      {
+        "text": "Neon (Ne)",
+        "category": "Noble Gases"
+      },
+      {
+        "text": "Magnesium (Mg)",
+        "category": "Alkaline Earth Metals"
+      },
+      {
+        "text": "Fluorine (F)",
+        "category": "Halogens"
+      },
+      {
+        "text": "Potassium (K)",
+        "category": "Alkali Metals"
+      },
+      {
+        "text": "Calcium (Ca)",
+        "category": "Alkaline Earth Metals"
+      }
+    ]
+  }
+]

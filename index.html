@@ -8,7 +8,6 @@
     <meta name="apple-mobile-web-app-title" content="Study Quiz">
     <title>Study Quiz</title>
     <style>
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -239,6 +238,11 @@ h1 {
     border-left-color: #FF3B30;
     background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
 }
+.answer-row { display: block; margin: 16px 0; }
+.answer-row select { margin-top: 6px; }
+.fill-blanks { line-height: 2.8; }
+.fill-blanks input { max-width: 100%; width: 150px; padding: 8px; margin: 4px; font-size: 16px; }
+.result-item p { margin-top: 8px; white-space: pre-wrap; }
 
     </style>
 </head>
@@ -247,7 +251,7 @@ h1 {
         <!-- Setup Screen -->
         <div id="setup-screen">
             <div class="header">
-                <h1>QuickQuiz</h1>
+                <h1>Study Quiz</h1>
             </div>
 
             <div class="form-group">
@@ -293,559 +297,1380 @@ h1 {
 
     <script>
 // All questions organized by subject/section
-const ALL_QUESTIONS = {"Science": {"Topic 6 - Populations, Communities, and Ecosystems": [{"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "What term describes the role of an organism in its habitat?", "type": "Single Choice", "options": ["Population", "Niche", "Predation", "Succession"], "correct_answer": "Niche", "feedback": "A niche is an organism's role in its habitat, including how it gets food and survives."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "A niche includes how an organism gets food, when and how it reproduces, and the physical conditions it needs to survive.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The lesson defines a niche as much more than just where an organism lives."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "What is competition in an ecosystem?", "type": "Single Choice", "options": ["The struggle between organisms to survive using the same limited resources", "A relationship in which both species benefit", "A series of predictable changes in a community over time", "The disappearance of a species from Earth"], "correct_answer": "The struggle between organisms to survive using the same limited resources", "feedback": "Competition happens when organisms use the same limited resources."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Species that share a habitat often have adaptations that help reduce competition.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The slides explain that shared habitats often lead to adaptations that reduce competition."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "In a predator-prey relationship, the organism that is hunted is called the ____.", "type": "Short Answer", "options": [], "correct_answer": "prey", "feedback": "The predator does the hunting; the prey is hunted."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "What is predation?", "type": "Single Choice", "options": ["A relationship in which one organism kills another for food or nutrients", "A relationship in which one organism benefits and the other is unaffected", "A form of succession that happens after a fire", "The movement of organisms to a new habitat"], "correct_answer": "A relationship in which one organism kills another for food or nutrients", "feedback": "Predation is an interaction in which a predator kills prey for food or nutrients."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Camouflage, warning coloration, and protective coverings can help prey avoid being killed.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "These are examples of prey adaptations that improve survival."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Symbiosis is:", "type": "Single Choice", "options": ["Any relationship in which two species live closely together", "A type of competition for food", "A rapid change in climate", "The first stage of succession"], "correct_answer": "Any relationship in which two species live closely together", "feedback": "The lesson defines symbiosis as any close relationship between two species."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Which symbiotic relationship benefits one species while the other species is neither helped nor harmed?", "type": "Single Choice", "options": ["Commensalism", "Mutualism", "Parasitism", "Predation"], "correct_answer": "Commensalism", "feedback": "In commensalism, one species benefits and the other is unaffected."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Which symbiotic relationship benefits both species?", "type": "Single Choice", "options": ["Commensalism", "Mutualism", "Parasitism", "Competition"], "correct_answer": "Mutualism", "feedback": "Mutualism means both species benefit from the relationship."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Which relationship involves one organism living on, in, or inside another organism and harming it?", "type": "Single Choice", "options": ["Commensalism", "Mutualism", "Parasitism", "Predation"], "correct_answer": "Parasitism", "feedback": "Parasitism benefits one organism while harming the host."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Primary succession occurs in an area where:", "type": "Single Choice", "options": ["No soil or organisms exist", "A fire has left the soil in place", "A predator has removed prey", "Two species share a niche"], "correct_answer": "No soil or organisms exist", "feedback": "Primary succession starts where there is no soil and no existing community."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Which organisms are commonly pioneer species during primary succession?", "type": "Multiple Choice", "options": ["Lichens", "Mosses", "Oak trees", "Wolves"], "correct_answer": ["Lichens", "Mosses"], "feedback": "Pioneer species are usually lichens and mosses, which help begin soil formation."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Secondary succession happens more quickly than primary succession because soil is already present.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Secondary succession begins after a disturbance in an area where soil already exists."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Longleaf pine trees are adapted to survive regular:", "type": "Single Choice", "options": ["Forest fires", "Avalanches", "Tsunamis", "Blizzards"], "correct_answer": "Forest fires", "feedback": "Longleaf pines depend on regular forest fires and have traits that help them survive them."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Biodiversity is the:", "type": "Single Choice", "options": ["Number and variety of different species in an area", "Amount of rainfall in a region", "Population size of one species", "Rate of succession in a habitat"], "correct_answer": "Number and variety of different species in an area", "feedback": "Healthy ecosystems have biodiversity, meaning many kinds of species."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "A keystone species is a species that:", "type": "Single Choice", "options": ["Influences the survival of many other species in an ecosystem", "Always lives at the top of a food chain", "Can survive without any competition", "Only lives in forests"], "correct_answer": "Influences the survival of many other species in an ecosystem", "feedback": "Keystone species help maintain ecosystem balance because many species depend on them."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Greater genetic diversity makes a species more likely to adapt and survive environmental change.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "More genetic variation improves a species' chances of adapting to new conditions."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "What is extinction?", "type": "Single Choice", "options": ["The disappearance of all members of a species from Earth", "A stable ecosystem with many species", "A temporary drop in population size", "A relationship between predator and prey"], "correct_answer": "The disappearance of all members of a species from Earth", "feedback": "Extinction means an entire species is gone from Earth."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Resources that are used but not consumed, such as shade from trees or recreation in habitats, have:", "type": "Single Choice", "options": ["Indirect value", "Direct value", "Genetic value", "Competitive value"], "correct_answer": "Indirect value", "feedback": "Indirect value comes from benefits we use without consuming the resource itself."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Mass extinction differs from background extinction because mass extinction:", "type": "Single Choice", "options": ["Kills many different species in a short time", "Usually affects only one species over a long period", "Always happens because of one predator", "Only happens in the ocean"], "correct_answer": "Kills many different species in a short time", "feedback": "Mass extinctions affect many species quickly, unlike background extinction."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Which human activity can reduce biodiversity?", "type": "Single Choice", "options": ["Deforestation", "Pollination", "Nutrient cycling", "Seed dispersal"], "correct_answer": "Deforestation", "feedback": "Removing habitats and natural resources can reduce biodiversity."}, {"subject": "Science", "section": "Topic 6 - Populations, Communities, and Ecosystems", "question": "Match each ecosystem interaction term to its correct description:", "type": "Matching", "pairs": [{"term": "Competition", "match": "The struggle between organisms to survive using the same limited resources"}, {"term": "Predation", "match": "One organism kills another for food or nutrients"}, {"term": "Mutualism", "match": "A symbiotic relationship in which both species benefit"}, {"term": "Commensalism", "match": "A symbiotic relationship in which one species benefits and the other is neither helped nor harmed"}, {"term": "Parasitism", "match": "A relationship in which one organism benefits while harming the host"}], "feedback": "These terms describe major interactions and processes in Topic 6.", "options": []}], "Chapter 7 Topic 1 - Patterns of Inheritance": [{"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Who is often called the father of modern genetics?", "type": "Single Choice", "options": ["Gregor Mendel", "Charles Darwin", "Isaac Newton", "Ptolemy"], "correct_answer": "Gregor Mendel", "feedback": "Mendel carefully studied inheritance in pea plants and quantified his results."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Heredity is the passing of traits from parents to offspring.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Heredity describes how traits are passed from one generation to the next."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Mendel studied pea plants because they had several clear traits that could be crossed and counted.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Mendel compared traits such as plant height, seed color, seed shape, flower color, and pod shape."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "In Mendel's experiments, the original parent plants are called the:", "type": "Single Choice", "options": ["P generation", "F1 generation", "F2 generation", "Phenotype"], "correct_answer": "P generation", "feedback": "The P generation is the parent generation used in the first cross."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "What does the F1 generation mean?", "type": "Single Choice", "options": ["The first generation of offspring", "The original parent plants", "The second generation of offspring", "A plant with two recessive alleles"], "correct_answer": "The first generation of offspring", "feedback": "F1 means first filial generation, or the first offspring generation."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "When Mendel crossed tall and short pea plants, all of the F1 offspring were tall.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The dominant tall trait appeared in the F1 generation."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "In Mendel's seed-color crosses, the recessive green trait could reappear in the F2 generation.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "A recessive trait can be hidden in F1 and show again in F2 when two recessive alleles are inherited."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Alleles are:", "type": "Single Choice", "options": ["Different forms of a gene", "The physical appearance of an organism", "Tools for measuring probability", "Only traits learned during life"], "correct_answer": "Different forms of a gene", "feedback": "Alleles are different versions of a gene, such as yellow or green seed-color alleles."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "A dominant allele is represented by a capital letter.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Geneticists usually write dominant alleles with capital letters, such as G."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "A recessive allele is hidden whenever a dominant allele is present.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "A recessive trait appears only when the organism inherits two recessive alleles."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Which genotype is hybrid for pea seed color?", "type": "Single Choice", "options": ["Gg", "GG", "gg", "G"], "correct_answer": "Gg", "feedback": "A hybrid has one dominant allele and one recessive allele."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "An organism with two identical alleles for a trait is called:", "type": "Single Choice", "options": ["Homozygous", "Heterozygous", "Hybrid", "Phenotype"], "correct_answer": "Homozygous", "feedback": "Homozygous means the alleles are the same."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "An organism with one dominant allele and one recessive allele is called:", "type": "Single Choice", "options": ["Heterozygous", "Homozygous dominant", "Homozygous recessive", "Purebred"], "correct_answer": "Heterozygous", "feedback": "Heterozygous means the two alleles are different."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "The genotype is an organism's physical appearance.", "type": "True/False", "options": ["True", "False"], "correct_answer": "False", "feedback": "Genotype is the allele combination; phenotype is the visible trait."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "The phenotype is the visible expression of an organism's genes.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Height, color, shape, size, and texture are examples of phenotypes."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "For yellow pea seed color, a plant with genotype GG or Gg would show which phenotype?", "type": "Single Choice", "options": ["Yellow seeds", "Green seeds", "Wrinkled seeds", "White flowers"], "correct_answer": "Yellow seeds", "feedback": "Yellow is dominant, so both GG and Gg produce yellow seeds."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "For a recessive trait to appear, the offspring must inherit:", "type": "Single Choice", "options": ["Two recessive alleles", "One dominant allele", "One dominant and one recessive allele", "No alleles"], "correct_answer": "Two recessive alleles", "feedback": "A recessive phenotype appears when no dominant allele is present."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Probability describes how likely it is that an event will occur.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Probability is used to predict possible inheritance outcomes."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Each coin toss or allele donation is independent of the previous one.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Previous outcomes do not change the probability of the next outcome."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "What tool do geneticists use to predict possible allele combinations in offspring?", "type": "Single Choice", "options": ["Punnett square", "Microscope", "Food web", "Bar graph"], "correct_answer": "Punnett square", "feedback": "Punnett squares model the probability of allele combinations."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "In a cross between two hybrid yellow pea plants (Gg x Gg), which genotype appears in 2 out of 4 boxes?", "type": "Single Choice", "options": ["Gg", "GG", "gg", "YY"], "correct_answer": "Gg", "feedback": "A Gg x Gg Punnett square gives GG, Gg, Gg, and gg."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "In a Gg x Gg cross, what fraction of offspring are expected to show the dominant yellow seed phenotype?", "type": "Single Choice", "options": ["3/4", "1/4", "1/2", "4/4"], "correct_answer": "3/4", "feedback": "GG and Gg offspring show the dominant phenotype, making 3 out of 4 boxes."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "The allele that each parent donates to offspring is random.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Each parent randomly passes one allele for a trait to the offspring."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "A plant with genotype gg is homozygous ____.", "type": "Short Answer", "options": [], "correct_answer": "recessive", "feedback": "Two lowercase alleles represent a homozygous recessive genotype."}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Match each inheritance term to its correct meaning:", "type": "Matching", "pairs": [{"term": "Heredity", "match": "Passing traits from parents to offspring"}, {"term": "Allele", "match": "A different form of a gene"}, {"term": "Genotype", "match": "An organism's allele combination"}, {"term": "Phenotype", "match": "An organism's visible trait"}, {"term": "Probability", "match": "A number describing how likely an event is"}], "feedback": "These terms are central to Chapter 7 Topic 1.", "options": []}, {"subject": "Science", "section": "Chapter 7 Topic 1 - Patterns of Inheritance", "question": "Sort each example as genotype or phenotype:", "type": "Categorization", "categories": ["Genotype", "Phenotype"], "items": [{"text": "GG", "category": "Genotype"}, {"text": "Gg", "category": "Genotype"}, {"text": "gg", "category": "Genotype"}, {"text": "Yellow seed color", "category": "Phenotype"}, {"text": "Green seed color", "category": "Phenotype"}], "feedback": "Genotype is the allele combination; phenotype is the visible trait.", "options": []}]}, "History": {"Chapter 8 - The Rise of Rome": [{"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Rome was built near which river?", "type": "Single Choice", "options": ["Nile River", "Tiber River", "Danube River", "Euphrates River"], "correct_answer": "Tiber River", "feedback": "Rome grew beside the Tiber River at an easy crossing point."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Rome's seven hills made the city easier to defend from attack.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The steep hills helped protect the city."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Compared with Greece, Italy helped Rome grow because Italy had:", "type": "Single Choice", "options": ["Better farmland and mountains that were easier to cross", "More deserts and fewer rivers", "No nearby seas for trade", "Only small isolated valleys"], "correct_answer": "Better farmland and mountains that were easier to cross", "feedback": "Italy could support more people, and its geography did not isolate communities as much as Greece did."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Which people changed Rome from a village of huts into a city with streets, temples, and public buildings?", "type": "Single Choice", "options": ["Persians", "Etruscans", "Carthaginians", "Hebrews"], "correct_answer": "Etruscans", "feedback": "The Etruscans strongly influenced early Roman development."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "According to Roman legend, who founded Rome in 753 B.C.?", "type": "Single Choice", "options": ["Aeneas", "Hannibal", "Romulus", "Cincinnatus"], "correct_answer": "Romulus", "feedback": "Roman tradition says Romulus founded the city after quarreling with Remus."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Rome became a republic in 509 B.C. after the Romans overthrew Etruscan rule.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The republic replaced the Etruscan kings."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "The smaller Roman army groups that could move quickly through enemy lines were called ____.", "type": "Short Answer", "options": [], "correct_answer": "legions", "feedback": "Roman armies were reorganized into legions for flexibility and control."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "What were Rome's wealthy landowners and nobles called?", "type": "Single Choice", "options": ["Plebeians", "Patricians", "Praetors", "Allies"], "correct_answer": "Patricians", "feedback": "Patricians made up Rome's ruling class."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "In the Roman Republic, the top government officials were the:", "type": "Single Choice", "options": ["Consuls", "Praetors", "Tribunes", "Senators"], "correct_answer": "Consuls", "feedback": "Two consuls headed the army and ran the government."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Each Roman consul could veto the other consul's decisions.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The veto helped keep either consul from becoming too powerful."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Rome's first written code of laws was called the:", "type": "Single Choice", "options": ["Law of Nations", "Julian Code", "Twelve Tables", "Code of Hammurabi"], "correct_answer": "Twelve Tables", "feedback": "The Twelve Tables were Rome's first written laws and became the basis of later Roman law."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "The Law of Nations helped spread the idea that accused people could defend themselves and were innocent until proven guilty.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Roman law promoted principles of justice that influenced later legal systems."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "The First Punic War began because Rome and Carthage both wanted control of:", "type": "Single Choice", "options": ["Sicily", "Egypt", "Gaul", "Greece"], "correct_answer": "Sicily", "feedback": "Control of Sicily led Rome and Carthage into war in 264 B.C."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Hannibal attacked Italy by crossing the Alps during the Second Punic War.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Hannibal marched from Spain over the Alps into Italy."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "At which battle did Hannibal hand Rome one of its worst defeats in 216 B.C.?", "type": "Single Choice", "options": ["Zama", "Actium", "Cannae", "Adrianople"], "correct_answer": "Cannae", "feedback": "The Roman army suffered a devastating loss at Cannae."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "A political alliance of three people is called a:", "type": "Single Choice", "options": ["Republic", "Triumvirate", "Legion", "Province"], "correct_answer": "Triumvirate", "feedback": "Crassus, Pompey, and Caesar formed the First Triumvirate."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "The phrase \"crossing the Rubicon\" means making a decision that cannot be taken back.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Caesar crossed the Rubicon knowing it would trigger civil war."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Who defeated Antony and Cleopatra at the Battle of Actium?", "type": "Single Choice", "options": ["Hannibal", "Octavian", "Cicero", "Scipio"], "correct_answer": "Octavian", "feedback": "Octavian won at Actium and became the strongest leader in Rome."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Who became Rome's first emperor?", "type": "Single Choice", "options": ["Julius Caesar", "Augustus", "Nero", "Tiberius"], "correct_answer": "Augustus", "feedback": "Octavian took the title Augustus and became Rome's first emperor."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "What does Pax Romana mean?", "type": "Single Choice", "options": ["Roman Law", "Roman Peace", "Roman Senate", "Roman Army"], "correct_answer": "Roman Peace", "feedback": "Pax Romana was the long era of peace and prosperity that began under Augustus."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Augustus made the tax system fairer by turning tax collectors into permanent government workers.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "This reform reduced corruption in tax collecting."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Plebeians included artisans, shopkeepers, and owners of small farms.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Plebeians were most of Rome's people, though they had less social status than patricians."}, {"subject": "History", "section": "Chapter 8 - The Rise of Rome", "question": "Place these major Roman events in chronological order:", "type": "Ordering", "items": ["Rome becomes a republic", "Romans adopt the Twelve Tables", "Rome destroys Carthage", "Julius Caesar is assassinated", "Octavian becomes Rome's first emperor"], "correct_order": [0, 1, 2, 3, 4], "feedback": "These events trace Rome's rise from republic to empire.", "options": []}], "Chapter 9 - Roman Civilization": [{"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "The Romans borrowed many ideas from the Greeks but changed them to fit Roman needs.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Romans admired Greek culture, but they adapted it for practical Roman use."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Roman statues often looked different from Greek statues because Roman statues were more:", "type": "Single Choice", "options": ["Realistic", "Mythical", "Colorful", "Gigantic"], "correct_answer": "Realistic", "feedback": "Roman artists showed wrinkles and other real features rather than ideal perfection."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Which Roman building feature helped support bridges, aqueducts, and buildings?", "type": "Single Choice", "options": ["Arch", "Pyramid", "Moat", "Terrace"], "correct_answer": "Arch", "feedback": "Romans were the first to make full use of the arch."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Who wrote the Aeneid?", "type": "Single Choice", "options": ["Livy", "Virgil", "Horace", "Tacitus"], "correct_answer": "Virgil", "feedback": "Virgil's Aeneid told the story of Aeneas and Rome's legendary beginnings."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Horace was known for writing:", "type": "Single Choice", "options": ["Satires and odes", "Law codes and speeches", "Maps of the stars", "Medical textbooks"], "correct_answer": "Satires and odes", "feedback": "Horace wrote works that mocked human weakness and poems expressing strong feelings."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Galen emphasized anatomy and learned about inner organs by cutting open dead animals.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Galen's medical ideas influenced doctors for more than 1,500 years."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Ptolemy is remembered for:", "type": "Single Choice", "options": ["Mapping over 1,000 stars and studying the movements of planets and stars", "Leading a slave revolt", "Writing the Aeneid", "Designing the Colosseum"], "correct_answer": "Mapping over 1,000 stars and studying the movements of planets and stars", "feedback": "Ptolemy carefully mapped stars and created rules to explain heavenly motion."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "The open area at the center of a Roman city used as a marketplace and public square was the:", "type": "Single Choice", "options": ["Forum", "Pantheon", "Circus", "Villa"], "correct_answer": "Forum", "feedback": "The Forum was the center of public life in many Roman cities."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Most poor Romans in the city lived in crowded apartment buildings, often in only one room.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "High rent forced many poor families into cramped apartments."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "The head of a Roman household was called the:", "type": "Single Choice", "options": ["Consul", "Paterfamilias", "Praetor", "Gladiator"], "correct_answer": "Paterfamilias", "feedback": "The paterfamilias had authority over the family."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Spartacus led a revolt of enslaved people in Italy.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Spartacus led a major slave revolt beginning in 73 B.C."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Inflation is:", "type": "Single Choice", "options": ["Rapidly increasing prices", "A decrease in trade", "A type of Roman road", "A system of writing laws"], "correct_answer": "Rapidly increasing prices", "feedback": "Rome suffered inflation when its coins lost value and prices rose."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Barter means to:", "type": "Single Choice", "options": ["Exchange goods without using money", "Pay taxes with gold coins", "Trade only with foreign merchants", "Use roads to move goods quickly"], "correct_answer": "Exchange goods without using money", "feedback": "As Roman money lost value, many people returned to barter."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Which emperor divided the empire into four parts because it was too large for one ruler?", "type": "Single Choice", "options": ["Augustus", "Diocletian", "Constantine", "Justinian"], "correct_answer": "Diocletian", "feedback": "Diocletian tried to reform the empire by dividing its administration."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Constantine made sure Christians could no longer be persecuted.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Constantine supported freedom of religion and expanded opportunities for Christians."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Which emperor split the Roman Empire into eastern and western parts after his death in A.D. 395?", "type": "Single Choice", "options": ["Marcus Aurelius", "Theodosius", "Alaric", "Odoacer"], "correct_answer": "Theodosius", "feedback": "Theodosius divided the empire into two separate parts."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Which Visigoth leader captured Rome in A.D. 410?", "type": "Single Choice", "options": ["Belisarius", "Alaric", "Theodoric", "Commodus"], "correct_answer": "Alaric", "feedback": "Alaric led the Visigoths in the sack of Rome in 410."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Historians often mark the fall of the Western Roman Empire in A.D. 476 when Odoacer overthrew Romulus Augustulus.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Odoacer's overthrow of the last western emperor is the usual marker for Rome's fall in the West."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Why was the Justinian Code important?", "type": "Single Choice", "options": ["It simplified and reorganized Byzantine laws so people could understand them more easily", "It created the first Roman army", "It ended trade with Asia", "It replaced Christianity with Roman gods"], "correct_answer": "It simplified and reorganized Byzantine laws so people could understand them more easily", "feedback": "The Justinian Code had a lasting influence on laws across Europe."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Theodora persuaded Justinian to stay in Constantinople and crush an uprising instead of fleeing.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Theodora's advice helped Justinian keep his throne and strengthen his rule."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Hagia Sophia means Holy ____.", "type": "Short Answer", "options": [], "correct_answer": "Wisdom", "feedback": "Hagia Sophia means ?Holy Wisdom.?"}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Why was Constantinople especially wealthy?", "type": "Single Choice", "options": ["It sat at major trade crossroads between Europe and Asia", "It controlled all of Rome's gold mines", "It had no taxes", "It was hidden from invaders in the desert"], "correct_answer": "It sat at major trade crossroads between Europe and Asia", "feedback": "Its location on important waterways and trade routes made Constantinople rich."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Byzantine mosaics were pictures made from many bits of colored glass or stone.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Mosaics were a major Byzantine art form, especially in churches."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "The Byzantine Empire preserved Greek culture and Roman law and lasted for about 1,000 years.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Byzantium carried Roman and Greek traditions forward for centuries."}, {"subject": "History", "section": "Chapter 9 - Roman Civilization", "question": "Match each Roman or Byzantine figure to the achievement most closely connected to that person:", "type": "Matching", "pairs": [{"term": "Diocletian", "match": "Divided the empire into four parts in an effort to reform it"}, {"term": "Constantine", "match": "Moved the capital to Constantinople and supported Christianity"}, {"term": "Justinian", "match": "Reorganized Byzantine law into the Justinian Code"}, {"term": "Theodora", "match": "Helped expand women's rights and urged Justinian to stay and fight an uprising"}], "feedback": "These leaders shaped Roman decline and Byzantine strength.", "options": []}], "Chapter 10 - Christianity": [{"subject": "History", "section": "Chapter 10 - Christianity", "question": "Christianity began in which Roman province?", "type": "Single Choice", "options": ["Judaea", "Gaul", "Britain", "Egypt"], "correct_answer": "Judaea", "feedback": "Jesus began preaching in Judaea and Galilee under Roman rule."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "In A.D. 6, Augustus turned Judah into the Roman province of Judaea.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "A Roman governor called a procurator ruled Judaea for the emperor."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "The Jews who wanted to fight Roman rule and take back control were called:", "type": "Single Choice", "options": ["Zealots", "Apostles", "Patriarchs", "Iconoclasts"], "correct_answer": "Zealots", "feedback": "The Zealots helped start the revolt against Rome in A.D. 66."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "After revolts in Judaea, the Romans destroyed the temple and later forced Jews out of Jerusalem.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Roman responses to Jewish revolts included destruction of the temple and banishment from Jerusalem."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "What did many Jews expect the messiah to do?", "type": "Single Choice", "options": ["Restore Israel's freedom and glory", "Build Roman roads", "Create the Byzantine Empire", "End all trade"], "correct_answer": "Restore Israel's freedom and glory", "feedback": "Many expected a deliverer like King David who would restore the kingdom."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Jesus' closest 12 followers were called:", "type": "Single Choice", "options": ["Disciples", "Martyrs", "Bishops", "Monks"], "correct_answer": "Disciples", "feedback": "The 12 disciples followed Jesus during his ministry."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Which message was central to Jesus' teaching?", "type": "Single Choice", "options": ["Love God and love your neighbor", "Honor the emperor as a god", "Conquer Rome by force", "Avoid helping outsiders"], "correct_answer": "Love God and love your neighbor", "feedback": "The chapter emphasizes Jesus' message of love, forgiveness, and turning from sin."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Parables are stories from everyday life used to express spiritual ideas.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Jesus used parables such as the Prodigal Son and the Good Samaritan."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Jesus was crucified because Roman leaders feared his message could threaten law and order.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Roman rulers charged Jesus with treason and used crucifixion for political rebels and lower-class criminals."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "The resurrection is the belief that Jesus:", "type": "Single Choice", "options": ["Rose from the dead", "Wrote the gospels", "Became emperor", "Led the Zealots"], "correct_answer": "Rose from the dead", "feedback": "Reports of Jesus' resurrection helped lead to the rise of Christianity."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Christ comes from a Greek word meaning:", "type": "Single Choice", "options": ["Messiah", "Teacher", "Emperor", "Disciple"], "correct_answer": "Messiah", "feedback": "Christos is Greek for messiah."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "What did early Christian churches do?", "type": "Multiple Choice", "options": ["Provided communities for worship and teaching", "Prayed and studied the Hebrew Bible", "Shared a ritual meal remembering Jesus", "Built Roman warships"], "correct_answer": ["Provided communities for worship and teaching", "Prayed and studied the Hebrew Bible", "Shared a ritual meal remembering Jesus"], "feedback": "Early churches worshiped, taught, prayed, studied scripture, and remembered Jesus' death and resurrection."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Which apostle helped spread Christianity to Gentiles and wrote letters to churches?", "type": "Single Choice", "options": ["Paul", "Cincinnatus", "Hannibal", "Leo III"], "correct_answer": "Paul", "feedback": "Paul traveled widely and wrote epistles to Christian communities."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Salvation means being saved from sin and allowed to enter heaven.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Christians taught that accepting Jesus and his teachings brought salvation."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Which Roman infrastructure helped Christians travel and spread their message?", "type": "Single Choice", "options": ["Roads", "Aqueducts", "Colosseums", "Villas"], "correct_answer": "Roads", "feedback": "Roman peace, roads, and common languages helped Christianity spread."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Why did Roman officials often see Christians as a threat?", "type": "Single Choice", "options": ["Christians refused to honor the emperor as a god", "Christians controlled the army", "Christians refused to help the poor", "Christians were Carthaginian allies"], "correct_answer": "Christians refused to honor the emperor as a god", "feedback": "Christians believed in one God and would not worship the emperor."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Martyrs are people who die for their faith.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Many Christians killed for their beliefs were remembered as martyrs."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "What did Constantine's Edict of Milan do in A.D. 313?", "type": "Single Choice", "options": ["Made Christianity legal and gave religious freedom", "Divided the Roman Empire", "Created the first monastery", "Banned all icons"], "correct_answer": "Made Christianity legal and gave religious freedom", "feedback": "The Edict of Milan legalized Christianity and allowed religious freedom."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Which emperor made Christianity the official religion of the Roman Empire in A.D. 392?", "type": "Single Choice", "options": ["Theodosius", "Diocletian", "Augustus", "Nero"], "correct_answer": "Theodosius", "feedback": "Theodosius made Christianity Rome's official religion and outlawed other religions."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "The clergy were regular church members, while the laity were church leaders.", "type": "True/False", "options": ["True", "False"], "correct_answer": "False", "feedback": "Clergy were church leaders; laity were regular members."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "By around A.D. 300, local churches were led by clergy called:", "type": "Single Choice", "options": ["Priests", "Consuls", "Zealots", "Iconoclasts"], "correct_answer": "Priests", "feedback": "Priests led local churches, bishops led dioceses, and patriarchs led major regions."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "The bishop of Rome became known by what special title?", "type": "Single Choice", "options": ["Pope", "Procurator", "Patriarch of Constantinople", "Missionary"], "correct_answer": "Pope", "feedback": "By A.D. 600, the bishop of Rome had gained the title pope."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "The New Testament includes the gospels, apostles' writings, and letters such as Paul's epistles.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Early Christian writings were gathered into the New Testament."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Which Christian thinker wrote The City of God and Confessions?", "type": "Single Choice", "options": ["Augustine", "Basil", "Benedict", "Cyril"], "correct_answer": "Augustine", "feedback": "Augustine defended Christianity and wrote from a Christian viewpoint."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "In the Byzantine Empire, church and government worked closely together.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Byzantines believed the emperor represented Jesus Christ on Earth and chose the patriarch of Constantinople."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Icons are:", "type": "Single Choice", "options": ["Pictures or images of Jesus, Mary, and saints", "Rules for monks", "Letters written by Paul", "Underground burial tunnels"], "correct_answer": "Pictures or images of Jesus, Mary, and saints", "feedback": "The use of icons caused a major Byzantine religious dispute."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Iconoclasts supported the use of icons in churches.", "type": "True/False", "options": ["True", "False"], "correct_answer": "False", "feedback": "Iconoclasts were image breakers who removed or attacked icons."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "The A.D. 1054 separation between the Roman Catholic and Eastern Orthodox Churches is called a:", "type": "Single Choice", "options": ["Schism", "Resurrection", "Parable", "Doctrine"], "correct_answer": "Schism", "feedback": "The mutual excommunications in 1054 began the schism between the churches."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Monasteries were religious communities of monks.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Monks lived in monasteries; nuns lived in convents."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Missionaries are people who:", "type": "Single Choice", "options": ["Teach their religion to those who are not followers", "Collect Roman taxes", "Break icons", "Write government laws"], "correct_answer": "Teach their religion to those who are not followers", "feedback": "Missionaries helped spread Christianity throughout Europe."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Cyril created an alphabet to help present Christianity in Slavic languages.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The Cyrillic alphabet helped Slavic peoples worship and read scripture in their own languages."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Which missionary helped spread Christianity in Ireland around A.D. 450?", "type": "Single Choice", "options": ["Patrick", "Paul", "Peter", "Leo III"], "correct_answer": "Patrick", "feedback": "Patrick preached Christianity in Ireland."}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Place these Christianity events in chronological order:", "type": "Ordering", "items": ["Jesus preaches in Galilee and Judaea", "Romans begin persecuting Christians", "Constantine accepts Christianity", "Christianity becomes the official religion of the Roman Empire", "Roman Catholic and Eastern Orthodox Churches separate"], "correct_order": [0, 1, 2, 3, 4], "feedback": "This sequence follows the chapter timeline.", "options": []}, {"subject": "History", "section": "Chapter 10 - Christianity", "question": "Match each Christianity term to its correct meaning:", "type": "Matching", "pairs": [{"term": "Messiah", "match": "A deliverer expected by many Jews"}, {"term": "Parable", "match": "A story from everyday life that teaches a spiritual idea"}, {"term": "Martyr", "match": "A person who dies for a faith"}, {"term": "Schism", "match": "A separation between church branches"}, {"term": "Missionary", "match": "A person who teaches a religion to non-followers"}], "feedback": "These vocabulary terms summarize Chapter 10.", "options": []}], "Ancient China Review": [{"subject": "History", "section": "Ancient China Review", "question": "Match each term with its correct definition:", "type": "Matching", "pairs": [{"term": "Farmers", "match": "Worked the land, made up most of the population, and grew millet, wheat, and rice."}, {"term": "Aristocrats", "match": "Wealthy landowners whose power came from inheriting and controlling land."}, {"term": "Huang He River", "match": "The Yellow River known for rich yellow silt and destructive flooding."}, {"term": "Legalism", "match": "A philosophy teaching humans are naturally evil and need harsh laws to maintain order."}, {"term": "Daoism", "match": "A philosophy encouraging harmony with nature and giving up worldly desires."}, {"term": "Buddhism", "match": "A religion from India that spread to China and offered comfort during unrest."}, {"term": "Confucianism", "match": "A philosophy based on duty, respect, and moral behavior in society."}, {"term": "Merchants", "match": "Lowest-ranked social class that traded goods but had low respect."}, {"term": "Filial Piety", "match": "The practice of respecting and obeying parents and elders."}], "feedback": "Farmers produced food and supported the entire social structure.", "options": []}]}, "ALA": {"Tuck Everlasting - Whole Book Quiz": [{"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Prologue: Which three events are introduced as happening during the first week of August?", "type": "Multiple Choice", "options": ["Mae Tuck sets out to meet her sons", "Winnie thinks about running away", "A stranger appears at the Fosters' gate", "The spring is destroyed"], "correct_answer": ["Mae Tuck sets out to meet her sons", "Winnie thinks about running away", "A stranger appears at the Fosters' gate"], "feedback": "The prologue connects Mae, Winnie, and the stranger before their stories meet."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 1: What is unusual about the road near Treegap?", "type": "Single Choice", "options": ["It goes around the wood instead of through it", "It leads straight to the ocean", "It is guarded by soldiers", "It disappears at night"], "correct_answer": "It goes around the wood instead of through it", "feedback": "The road curves around the wood, helping keep the spring hidden."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 2: Why is Mae Tuck excited when she wakes up?", "type": "Single Choice", "options": ["Her sons are coming home", "She has found a new house", "She is leaving Treegap forever", "She is going to sell the spring"], "correct_answer": "Her sons are coming home", "feedback": "Mae expects Miles and Jesse to return for their ten-year visit."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 3: Winnie feels trapped by her family's rules and thinks about running away.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Winnie talks to the toad and imagines proving she can make her own choices."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 4: What is the man in the yellow suit trying to learn from Winnie and her grandmother?", "type": "Single Choice", "options": ["The source of the music he hears", "Where the constable lives", "How to buy a horse", "Where Mae's house is"], "correct_answer": "The source of the music he hears", "feedback": "He connects the music-box melody to the family he has been searching for."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 5: Why does Winnie enter the wood?", "type": "Single Choice", "options": ["She decides to explore instead of fully running away", "She is chasing the constable", "Her family sends her there", "She wants to sell the wood"], "correct_answer": "She decides to explore instead of fully running away", "feedback": "Winnie is afraid to run far away, so she goes into her family's wood."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 6: Why do the Tucks take Winnie with them after she sees the spring?", "type": "Single Choice", "options": ["They need to explain why she must not drink from it", "They plan to keep her forever", "They want her to sell the wood", "They think she is a ghost"], "correct_answer": "They need to explain why she must not drink from it", "feedback": "The Tucks fear the secret of the spring will spread before Winnie understands it."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 7: What happened to the Tucks after they drank from the spring?", "type": "Single Choice", "options": ["They stopped aging and could not die", "They became rich", "They forgot Treegap", "They turned invisible"], "correct_answer": "They stopped aging and could not die", "feedback": "The Tucks discover that the spring water has made them immortal."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 8: Jesse sees immortality as exciting, while Miles warns Winnie that it has serious consequences.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The brothers show different attitudes toward living forever."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 9: Who secretly follows the Tucks and Winnie?", "type": "Single Choice", "options": ["The man in the yellow suit", "The constable", "Winnie's father", "The toad"], "correct_answer": "The man in the yellow suit", "feedback": "He follows them and later uses what he learns for his own plan."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 10: How is the Tucks' home different from Winnie's home?", "type": "Single Choice", "options": ["It is messy, relaxed, and welcoming", "It is spotless and full of strict rules", "It is inside the Foster wood", "It is a palace"], "correct_answer": "It is messy, relaxed, and welcoming", "feedback": "Winnie notices the Tucks' casual home life because her own home is tightly controlled."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 11: Winnie begins to feel both comforted by the Tucks and worried about her family at home.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "After supper, Winnie enjoys the Tucks but remembers her family must be frightened."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 12: What does Tuck compare life to during his talk with Winnie on the pond?", "type": "Single Choice", "options": ["A wheel that keeps moving", "A locked gate", "A road with no turns", "A music box"], "correct_answer": "A wheel that keeps moving", "feedback": "Tuck believes death is part of the natural movement of life."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 13: What bargain does the man in the yellow suit offer the Fosters?", "type": "Single Choice", "options": ["He will tell where Winnie is if they sell him the wood", "He will buy their house for gold", "He will rescue Winnie for free", "He will return Mae's horse"], "correct_answer": "He will tell where Winnie is if they sell him the wood", "feedback": "He uses Winnie's disappearance to get control of the wood."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 14: What does Jesse give Winnie?", "type": "Single Choice", "options": ["A bottle of spring water", "A map of Treegap", "Mae's music box", "The constable's key"], "correct_answer": "A bottle of spring water", "feedback": "Jesse wants Winnie to drink it when she turns seventeen and later join him."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 15: What does the man in the yellow suit plan to do with the spring water?", "type": "Single Choice", "options": ["Sell it to selected people", "Destroy it immediately", "Give it to everyone for free", "Use it only for the toad"], "correct_answer": "Sell it to selected people", "feedback": "His plan shows greed and a desire to control immortality."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 16: The constable becomes suspicious of the man in the yellow suit during their ride.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "The constable questions why the stranger waited and why he is so involved."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 17: Why does Miles throw the fish back into the pond?", "type": "Single Choice", "options": ["He does not want to take life unnecessarily", "He is afraid of fish", "Winnie orders him to", "The fish is magic"], "correct_answer": "He does not want to take life unnecessarily", "feedback": "Miles's choice reflects the novel's concern with life and death."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 18: Jesse's plan asks Winnie to drink from the spring when she is older.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Jesse imagines Winnie becoming immortal at seventeen and sharing life with him."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 19: Why does Mae strike the man in the yellow suit?", "type": "Single Choice", "options": ["He says he will take Winnie and sell the spring water", "He steals the music box", "He burns the Tucks' house", "He arrests Tuck"], "correct_answer": "He says he will take Winnie and sell the spring water", "feedback": "Mae acts to protect Winnie and the secret of the spring."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 20: What danger does Mae face after the constable arrives?", "type": "Single Choice", "options": ["She may be hanged for killing the man in the yellow suit", "She may lose the wood", "She may be forced to drink the water", "She may forget Winnie"], "correct_answer": "She may be hanged for killing the man in the yellow suit", "feedback": "Because Mae cannot die, hanging her would reveal the Tucks' secret."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 21: Winnie decides she must help Mae escape from jail.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Winnie understands that Mae's execution would expose the secret."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 22: Winnie uses the bottle of spring water on the toad because it is threatened and thirsty.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "Winnie's choice shows compassion and also reveals that she has not used the water on herself."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 23: What is Winnie waiting for during the long hot day?", "type": "Single Choice", "options": ["Midnight and the plan to free Mae", "The sale of the wood", "A visit from the man in the yellow suit", "A new road through Treegap"], "correct_answer": "Midnight and the plan to free Mae", "feedback": "Winnie waits anxiously with Jesse's bottle hidden in her room."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 24: How does Winnie help Mae escape?", "type": "Single Choice", "options": ["She takes Mae's place in the jail cell", "She distracts the constable with a fire", "She digs a tunnel alone", "She gives Mae the spring water"], "correct_answer": "She takes Mae's place in the jail cell", "feedback": "Winnie pretends to be Mae in the cell long enough for the Tucks to get away."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Chapter 25: What does Winnie learn after helping the Tucks?", "type": "Single Choice", "options": ["Her family and town see her differently", "The wood has vanished overnight", "Jesse has returned for her", "The spring has stopped flowing"], "correct_answer": "Her family and town see her differently", "feedback": "Winnie's actions change how others view her and how she views herself."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Epilogue: What do Mae and Tuck discover when they return to Treegap years later?", "type": "Single Choice", "options": ["Winnie chose to live a normal life and has died", "Winnie is waiting by the spring", "The Fosters still own the same wood", "The man in the yellow suit survived"], "correct_answer": "Winnie chose to live a normal life and has died", "feedback": "Winnie's grave shows that she did not drink the spring water."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Which theme is most central to Tuck Everlasting?", "type": "Single Choice", "options": ["Life has meaning because it changes and ends", "Wealth solves every problem", "Rules should never be broken", "Nature should always be sold for profit"], "correct_answer": "Life has meaning because it changes and ends", "feedback": "Tuck's pond speech and Winnie's final choice both support this theme."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "What does the toad help show at the end of the novel?", "type": "Single Choice", "options": ["Winnie gives immortality away instead of taking it for herself", "The spring never worked", "Mae has returned to Treegap", "The man in the yellow suit was right"], "correct_answer": "Winnie gives immortality away instead of taking it for herself", "feedback": "The toad receives the water Jesse gave Winnie, showing Winnie's choice."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "The man in the yellow suit mainly represents:", "type": "Single Choice", "options": ["Greed and the desire to control immortality", "Patience and family loyalty", "Fear of leaving home", "Respect for nature"], "correct_answer": "Greed and the desire to control immortality", "feedback": "He wants ownership of the wood so he can profit from the spring."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Why is the Foster wood important to the plot?", "type": "Single Choice", "options": ["It hides the spring that causes immortality", "It is where the constable lives", "It is the site of Winnie's school", "It is where the Tucks keep their house"], "correct_answer": "It hides the spring that causes immortality", "feedback": "The secret spring in the wood connects Winnie, the Tucks, and the stranger."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Winnie becomes braver and more independent over the course of the novel.", "type": "True/False", "options": ["True", "False"], "correct_answer": "True", "feedback": "By the end, Winnie makes difficult choices and takes responsibility for them."}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Place these Tuck Everlasting plot events in order:", "type": "Ordering", "items": ["Winnie meets Jesse at the spring", "The Tucks explain the spring's secret", "The man in the yellow suit demands the wood", "Mae is jailed", "Winnie helps Mae escape"], "correct_order": [0, 1, 2, 3, 4], "feedback": "These events trace the central plot of the novel.", "options": []}, {"subject": "ALA", "section": "Tuck Everlasting - Whole Book Quiz", "question": "Match each Tuck Everlasting character to the best description:", "type": "Matching", "pairs": [{"term": "Winnie Foster", "match": "A sheltered girl who must decide what to do with the secret of the spring"}, {"term": "Mae Tuck", "match": "The mother who protects Winnie and the spring's secret"}, {"term": "Tuck", "match": "The father who explains why endless life is not natural"}, {"term": "Jesse Tuck", "match": "The younger son who wants Winnie to drink the water later"}, {"term": "The man in the yellow suit", "match": "The stranger who wants to profit from the spring"}], "feedback": "These characters drive the main conflict of the novel.", "options": []}]}, "QA - Not Test": {"Orders": [{"subject": "QA - Not Test", "section": "Orders", "question": "Order These", "type": "Ordering", "items": ["First", "Second"], "correct_order": [0, 1], "feedback": "This is first", "options": []}], "World Capitals": [{"subject": "QA - Not Test", "section": "World Capitals", "question": "Fill in the blanks about world capitals:", "type": "Fill-Blank", "text_with_blanks": "The capital of France is {{blank}}. Japan's capital city is {{blank}}. {{blank}} is the capital of Australia, not Sydney. The United Kingdom's capital is {{blank}}.", "answers": ["Paris", "Tokyo", "Canberra", "London"], "case_sensitive": false, "feedback": "These are four major world capitals. Many people mistakenly think Sydney is Australia's capital!", "options": []}], "Algebra": [{"subject": "QA - Not Test", "section": "Algebra", "question": "Complete the quadratic formula:", "type": "Fill-Blank", "text_with_blanks": "For equation ax\u00b2 + bx + c = 0, the solutions are: x = {{blank}} \u00b1 \u221a(b\u00b2 - 4ac) / {{blank}}", "answers": ["-b", "2a"], "case_sensitive": false, "feedback": "The quadratic formula is: x = (-b \u00b1 \u221a(b\u00b2 - 4ac)) / 2a", "options": []}], "States of Matter": [{"subject": "QA - Not Test", "section": "States of Matter", "question": "Sort these common substances by their state at room temperature (20\u00b0C/68\u00b0F):", "type": "Categorization", "categories": ["Solid", "Liquid", "Gas"], "items": [{"text": "Water (H\u2082O)", "category": "Liquid"}, {"text": "Ice", "category": "Solid"}, {"text": "Oxygen (O\u2082)", "category": "Gas"}, {"text": "Iron (Fe)", "category": "Solid"}, {"text": "Mercury (Hg)", "category": "Liquid"}, {"text": "Nitrogen (N\u2082)", "category": "Gas"}, {"text": "Table Salt (NaCl)", "category": "Solid"}, {"text": "Alcohol (Ethanol)", "category": "Liquid"}], "feedback": "At room temperature, most metals are solid, water and mercury are liquid, and most atmospheric gases are gaseous.", "options": []}], "Elements": [{"subject": "QA - Not Test", "section": "Elements", "question": "Categorize these elements by their group on the periodic table:", "type": "Categorization", "categories": ["Noble Gases", "Halogens", "Alkali Metals", "Alkaline Earth Metals"], "items": [{"text": "Helium (He)", "category": "Noble Gases"}, {"text": "Sodium (Na)", "category": "Alkali Metals"}, {"text": "Chlorine (Cl)", "category": "Halogens"}, {"text": "Neon (Ne)", "category": "Noble Gases"}, {"text": "Magnesium (Mg)", "category": "Alkaline Earth Metals"}, {"text": "Fluorine (F)", "category": "Halogens"}, {"text": "Potassium (K)", "category": "Alkali Metals"}, {"text": "Calcium (Ca)", "category": "Alkaline Earth Metals"}], "feedback": "Elements in the same group share similar chemical properties due to their electron configurations.", "options": []}]}};
+const ALL_QUESTIONS = [
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What term describes the role of an organism in its habitat?",
+    "feedback": "A niche is an organism's role in its habitat, including how it gets food and survives.",
+    "type": "Single Choice",
+    "options": [
+      "Population",
+      "Niche",
+      "Predation",
+      "Succession"
+    ],
+    "correct_answer": "Niche"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "A niche includes how an organism gets food, when and how it reproduces, and the physical conditions it needs to survive.",
+    "feedback": "The lesson defines a niche as much more than just where an organism lives.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What is competition in an ecosystem?",
+    "feedback": "Competition happens when organisms use the same limited resources.",
+    "type": "Single Choice",
+    "options": [
+      "The struggle between organisms to survive using the same limited resources",
+      "A relationship in which both species benefit",
+      "A series of predictable changes in a community over time",
+      "The disappearance of a species from Earth"
+    ],
+    "correct_answer": "The struggle between organisms to survive using the same limited resources"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Species that share a habitat often have adaptations that help reduce competition.",
+    "feedback": "The slides explain that shared habitats often lead to adaptations that reduce competition.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "In a predator-prey relationship, the organism that is hunted is called the ____.",
+    "feedback": "The predator does the hunting; the prey is hunted.",
+    "type": "Short Answer",
+    "options": null,
+    "correct_answer": "prey"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What is predation?",
+    "feedback": "Predation is an interaction in which a predator kills prey for food or nutrients.",
+    "type": "Single Choice",
+    "options": [
+      "A relationship in which one organism kills another for food or nutrients",
+      "A relationship in which one organism benefits and the other is unaffected",
+      "A form of succession that happens after a fire",
+      "The movement of organisms to a new habitat"
+    ],
+    "correct_answer": "A relationship in which one organism kills another for food or nutrients"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Camouflage, warning coloration, and protective coverings can help prey avoid being killed.",
+    "feedback": "These are examples of prey adaptations that improve survival.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Symbiosis is:",
+    "feedback": "The lesson defines symbiosis as any close relationship between two species.",
+    "type": "Single Choice",
+    "options": [
+      "Any relationship in which two species live closely together",
+      "A type of competition for food",
+      "A rapid change in climate",
+      "The first stage of succession"
+    ],
+    "correct_answer": "Any relationship in which two species live closely together"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which symbiotic relationship benefits one species while the other species is neither helped nor harmed?",
+    "feedback": "In commensalism, one species benefits and the other is unaffected.",
+    "type": "Single Choice",
+    "options": [
+      "Commensalism",
+      "Mutualism",
+      "Parasitism",
+      "Predation"
+    ],
+    "correct_answer": "Commensalism"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which symbiotic relationship benefits both species?",
+    "feedback": "Mutualism means both species benefit from the relationship.",
+    "type": "Single Choice",
+    "options": [
+      "Commensalism",
+      "Mutualism",
+      "Parasitism",
+      "Competition"
+    ],
+    "correct_answer": "Mutualism"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which relationship involves one organism living on, in, or inside another organism and harming it?",
+    "feedback": "Parasitism benefits one organism while harming the host.",
+    "type": "Single Choice",
+    "options": [
+      "Commensalism",
+      "Mutualism",
+      "Parasitism",
+      "Predation"
+    ],
+    "correct_answer": "Parasitism"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Primary succession occurs in an area where:",
+    "feedback": "Primary succession starts where there is no soil and no existing community.",
+    "type": "Single Choice",
+    "options": [
+      "No soil or organisms exist",
+      "A fire has left the soil in place",
+      "A predator has removed prey",
+      "Two species share a niche"
+    ],
+    "correct_answer": "No soil or organisms exist"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which organisms are commonly pioneer species during primary succession?",
+    "feedback": "Pioneer species are usually lichens and mosses, which help begin soil formation.",
+    "type": "Multiple Choice",
+    "options": [
+      "Lichens",
+      "Mosses",
+      "Oak trees",
+      "Wolves"
+    ],
+    "correct_answer": [
+      "Lichens",
+      "Mosses"
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Secondary succession happens more quickly than primary succession because soil is already present.",
+    "feedback": "Secondary succession begins after a disturbance in an area where soil already exists.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Longleaf pine trees are adapted to survive regular:",
+    "feedback": "Longleaf pines depend on regular forest fires and have traits that help them survive them.",
+    "type": "Single Choice",
+    "options": [
+      "Forest fires",
+      "Avalanches",
+      "Tsunamis",
+      "Blizzards"
+    ],
+    "correct_answer": "Forest fires"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Biodiversity is the:",
+    "feedback": "Healthy ecosystems have biodiversity, meaning many kinds of species.",
+    "type": "Single Choice",
+    "options": [
+      "Number and variety of different species in an area",
+      "Amount of rainfall in a region",
+      "Population size of one species",
+      "Rate of succession in a habitat"
+    ],
+    "correct_answer": "Number and variety of different species in an area"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "A keystone species is a species that:",
+    "feedback": "Keystone species help maintain ecosystem balance because many species depend on them.",
+    "type": "Single Choice",
+    "options": [
+      "Influences the survival of many other species in an ecosystem",
+      "Always lives at the top of a food chain",
+      "Can survive without any competition",
+      "Only lives in forests"
+    ],
+    "correct_answer": "Influences the survival of many other species in an ecosystem"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Greater genetic diversity makes a species more likely to adapt and survive environmental change.",
+    "feedback": "More genetic variation improves a species' chances of adapting to new conditions.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "What is extinction?",
+    "feedback": "Extinction means an entire species is gone from Earth.",
+    "type": "Single Choice",
+    "options": [
+      "The disappearance of all members of a species from Earth",
+      "A stable ecosystem with many species",
+      "A temporary drop in population size",
+      "A relationship between predator and prey"
+    ],
+    "correct_answer": "The disappearance of all members of a species from Earth"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Resources that are used but not consumed, such as shade from trees or recreation in habitats, have:",
+    "feedback": "Indirect value comes from benefits we use without consuming the resource itself.",
+    "type": "Single Choice",
+    "options": [
+      "Indirect value",
+      "Direct value",
+      "Genetic value",
+      "Competitive value"
+    ],
+    "correct_answer": "Indirect value"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Mass extinction differs from background extinction because mass extinction:",
+    "feedback": "Mass extinctions affect many species quickly, unlike background extinction.",
+    "type": "Single Choice",
+    "options": [
+      "Kills many different species in a short time",
+      "Usually affects only one species over a long period",
+      "Always happens because of one predator",
+      "Only happens in the ocean"
+    ],
+    "correct_answer": "Kills many different species in a short time"
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Which human activity can reduce biodiversity?",
+    "feedback": "Removing habitats and natural resources can reduce biodiversity.",
+    "type": "Single Choice",
+    "options": [
+      "Deforestation",
+      "Pollination",
+      "Nutrient cycling",
+      "Seed dispersal"
+    ],
+    "correct_answer": "Deforestation"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome was built near which river?",
+    "feedback": "Rome grew beside the Tiber River at an easy crossing point.",
+    "type": "Single Choice",
+    "options": [
+      "Nile River",
+      "Tiber River",
+      "Danube River",
+      "Euphrates River"
+    ],
+    "correct_answer": "Tiber River"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome's seven hills made the city easier to defend from attack.",
+    "feedback": "The steep hills helped protect the city.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Compared with Greece, Italy helped Rome grow because Italy had:",
+    "feedback": "Italy could support more people, and its geography did not isolate communities as much as Greece did.",
+    "type": "Single Choice",
+    "options": [
+      "Better farmland and mountains that were easier to cross",
+      "More deserts and fewer rivers",
+      "No nearby seas for trade",
+      "Only small isolated valleys"
+    ],
+    "correct_answer": "Better farmland and mountains that were easier to cross"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Which people changed Rome from a village of huts into a city with streets, temples, and public buildings?",
+    "feedback": "The Etruscans strongly influenced early Roman development.",
+    "type": "Single Choice",
+    "options": [
+      "Persians",
+      "Etruscans",
+      "Carthaginians",
+      "Hebrews"
+    ],
+    "correct_answer": "Etruscans"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "According to Roman legend, who founded Rome in 753 B.C.?",
+    "feedback": "Roman tradition says Romulus founded the city after quarreling with Remus.",
+    "type": "Single Choice",
+    "options": [
+      "Aeneas",
+      "Hannibal",
+      "Romulus",
+      "Cincinnatus"
+    ],
+    "correct_answer": "Romulus"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome became a republic in 509 B.C. after the Romans overthrew Etruscan rule.",
+    "feedback": "The republic replaced the Etruscan kings.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The smaller Roman army groups that could move quickly through enemy lines were called ____.",
+    "feedback": "Roman armies were reorganized into legions for flexibility and control.",
+    "type": "Short Answer",
+    "options": null,
+    "correct_answer": "legions"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "What were Rome's wealthy landowners and nobles called?",
+    "feedback": "Patricians made up Rome's ruling class.",
+    "type": "Single Choice",
+    "options": [
+      "Plebeians",
+      "Patricians",
+      "Praetors",
+      "Allies"
+    ],
+    "correct_answer": "Patricians"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "In the Roman Republic, the top government officials were the:",
+    "feedback": "Two consuls headed the army and ran the government.",
+    "type": "Single Choice",
+    "options": [
+      "Consuls",
+      "Praetors",
+      "Tribunes",
+      "Senators"
+    ],
+    "correct_answer": "Consuls"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Each Roman consul could veto the other consul's decisions.",
+    "feedback": "The veto helped keep either consul from becoming too powerful.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Rome's first written code of laws was called the:",
+    "feedback": "The Twelve Tables were Rome's first written laws and became the basis of later Roman law.",
+    "type": "Single Choice",
+    "options": [
+      "Law of Nations",
+      "Julian Code",
+      "Twelve Tables",
+      "Code of Hammurabi"
+    ],
+    "correct_answer": "Twelve Tables"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The Law of Nations helped spread the idea that accused people could defend themselves and were innocent until proven guilty.",
+    "feedback": "Roman law promoted principles of justice that influenced later legal systems.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The First Punic War began because Rome and Carthage both wanted control of:",
+    "feedback": "Control of Sicily led Rome and Carthage into war in 264 B.C.",
+    "type": "Single Choice",
+    "options": [
+      "Sicily",
+      "Egypt",
+      "Gaul",
+      "Greece"
+    ],
+    "correct_answer": "Sicily"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Hannibal attacked Italy by crossing the Alps during the Second Punic War.",
+    "feedback": "Hannibal marched from Spain over the Alps into Italy.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "At which battle did Hannibal hand Rome one of its worst defeats in 216 B.C.?",
+    "feedback": "The Roman army suffered a devastating loss at Cannae.",
+    "type": "Single Choice",
+    "options": [
+      "Zama",
+      "Actium",
+      "Cannae",
+      "Adrianople"
+    ],
+    "correct_answer": "Cannae"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "A political alliance of three people is called a:",
+    "feedback": "Crassus, Pompey, and Caesar formed the First Triumvirate.",
+    "type": "Single Choice",
+    "options": [
+      "Republic",
+      "Triumvirate",
+      "Legion",
+      "Province"
+    ],
+    "correct_answer": "Triumvirate"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "The phrase \"crossing the Rubicon\" means making a decision that cannot be taken back.",
+    "feedback": "Caesar crossed the Rubicon knowing it would trigger civil war.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Who defeated Antony and Cleopatra at the Battle of Actium?",
+    "feedback": "Octavian won at Actium and became the strongest leader in Rome.",
+    "type": "Single Choice",
+    "options": [
+      "Hannibal",
+      "Octavian",
+      "Cicero",
+      "Scipio"
+    ],
+    "correct_answer": "Octavian"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Who became Rome's first emperor?",
+    "feedback": "Octavian took the title Augustus and became Rome's first emperor.",
+    "type": "Single Choice",
+    "options": [
+      "Julius Caesar",
+      "Augustus",
+      "Nero",
+      "Tiberius"
+    ],
+    "correct_answer": "Augustus"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "What does Pax Romana mean?",
+    "feedback": "Pax Romana was the long era of peace and prosperity that began under Augustus.",
+    "type": "Single Choice",
+    "options": [
+      "Roman Law",
+      "Roman Peace",
+      "Roman Senate",
+      "Roman Army"
+    ],
+    "correct_answer": "Roman Peace"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Augustus made the tax system fairer by turning tax collectors into permanent government workers.",
+    "feedback": "This reform reduced corruption in tax collecting.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Plebeians included artisans, shopkeepers, and owners of small farms.",
+    "feedback": "Plebeians were most of Rome's people, though they had less social status than patricians.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The Romans borrowed many ideas from the Greeks but changed them to fit Roman needs.",
+    "feedback": "Romans admired Greek culture, but they adapted it for practical Roman use.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Roman statues often looked different from Greek statues because Roman statues were more:",
+    "feedback": "Roman artists showed wrinkles and other real features rather than ideal perfection.",
+    "type": "Single Choice",
+    "options": [
+      "Realistic",
+      "Mythical",
+      "Colorful",
+      "Gigantic"
+    ],
+    "correct_answer": "Realistic"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which Roman building feature helped support bridges, aqueducts, and buildings?",
+    "feedback": "Romans were the first to make full use of the arch.",
+    "type": "Single Choice",
+    "options": [
+      "Arch",
+      "Pyramid",
+      "Moat",
+      "Terrace"
+    ],
+    "correct_answer": "Arch"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Who wrote the Aeneid?",
+    "feedback": "Virgil's Aeneid told the story of Aeneas and Rome's legendary beginnings.",
+    "type": "Single Choice",
+    "options": [
+      "Livy",
+      "Virgil",
+      "Horace",
+      "Tacitus"
+    ],
+    "correct_answer": "Virgil"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Horace was known for writing:",
+    "feedback": "Horace wrote works that mocked human weakness and poems expressing strong feelings.",
+    "type": "Single Choice",
+    "options": [
+      "Satires and odes",
+      "Law codes and speeches",
+      "Maps of the stars",
+      "Medical textbooks"
+    ],
+    "correct_answer": "Satires and odes"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Galen emphasized anatomy and learned about inner organs by cutting open dead animals.",
+    "feedback": "Galen's medical ideas influenced doctors for more than 1,500 years.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Ptolemy is remembered for:",
+    "feedback": "Ptolemy carefully mapped stars and created rules to explain heavenly motion.",
+    "type": "Single Choice",
+    "options": [
+      "Mapping over 1,000 stars and studying the movements of planets and stars",
+      "Leading a slave revolt",
+      "Writing the Aeneid",
+      "Designing the Colosseum"
+    ],
+    "correct_answer": "Mapping over 1,000 stars and studying the movements of planets and stars"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The open area at the center of a Roman city used as a marketplace and public square was the:",
+    "feedback": "The Forum was the center of public life in many Roman cities.",
+    "type": "Single Choice",
+    "options": [
+      "Forum",
+      "Pantheon",
+      "Circus",
+      "Villa"
+    ],
+    "correct_answer": "Forum"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Most poor Romans in the city lived in crowded apartment buildings, often in only one room.",
+    "feedback": "High rent forced many poor families into cramped apartments.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The head of a Roman household was called the:",
+    "feedback": "The paterfamilias had authority over the family.",
+    "type": "Single Choice",
+    "options": [
+      "Consul",
+      "Paterfamilias",
+      "Praetor",
+      "Gladiator"
+    ],
+    "correct_answer": "Paterfamilias"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Spartacus led a revolt of enslaved people in Italy.",
+    "feedback": "Spartacus led a major slave revolt beginning in 73 B.C.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Inflation is:",
+    "feedback": "Rome suffered inflation when its coins lost value and prices rose.",
+    "type": "Single Choice",
+    "options": [
+      "Rapidly increasing prices",
+      "A decrease in trade",
+      "A type of Roman road",
+      "A system of writing laws"
+    ],
+    "correct_answer": "Rapidly increasing prices"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Barter means to:",
+    "feedback": "As Roman money lost value, many people returned to barter.",
+    "type": "Single Choice",
+    "options": [
+      "Exchange goods without using money",
+      "Pay taxes with gold coins",
+      "Trade only with foreign merchants",
+      "Use roads to move goods quickly"
+    ],
+    "correct_answer": "Exchange goods without using money"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which emperor divided the empire into four parts because it was too large for one ruler?",
+    "feedback": "Diocletian tried to reform the empire by dividing its administration.",
+    "type": "Single Choice",
+    "options": [
+      "Augustus",
+      "Diocletian",
+      "Constantine",
+      "Justinian"
+    ],
+    "correct_answer": "Diocletian"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Constantine made sure Christians could no longer be persecuted.",
+    "feedback": "Constantine supported freedom of religion and expanded opportunities for Christians.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which emperor split the Roman Empire into eastern and western parts after his death in A.D. 395?",
+    "feedback": "Theodosius divided the empire into two separate parts.",
+    "type": "Single Choice",
+    "options": [
+      "Marcus Aurelius",
+      "Theodosius",
+      "Alaric",
+      "Odoacer"
+    ],
+    "correct_answer": "Theodosius"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Which Visigoth leader captured Rome in A.D. 410?",
+    "feedback": "Alaric led the Visigoths in the sack of Rome in 410.",
+    "type": "Single Choice",
+    "options": [
+      "Belisarius",
+      "Alaric",
+      "Theodoric",
+      "Commodus"
+    ],
+    "correct_answer": "Alaric"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Historians often mark the fall of the Western Roman Empire in A.D. 476 when Odoacer overthrew Romulus Augustulus.",
+    "feedback": "Odoacer's overthrow of the last western emperor is the usual marker for Rome's fall in the West.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Why was the Justinian Code important?",
+    "feedback": "The Justinian Code had a lasting influence on laws across Europe.",
+    "type": "Single Choice",
+    "options": [
+      "It simplified and reorganized Byzantine laws so people could understand them more easily",
+      "It created the first Roman army",
+      "It ended trade with Asia",
+      "It replaced Christianity with Roman gods"
+    ],
+    "correct_answer": "It simplified and reorganized Byzantine laws so people could understand them more easily"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Theodora persuaded Justinian to stay in Constantinople and crush an uprising instead of fleeing.",
+    "feedback": "Theodora's advice helped Justinian keep his throne and strengthen his rule.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Hagia Sophia means Holy ____.",
+    "feedback": "Hagia Sophia means ?Holy Wisdom.?",
+    "type": "Short Answer",
+    "options": null,
+    "correct_answer": "Wisdom"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Why was Constantinople especially wealthy?",
+    "feedback": "Its location on important waterways and trade routes made Constantinople rich.",
+    "type": "Single Choice",
+    "options": [
+      "It sat at major trade crossroads between Europe and Asia",
+      "It controlled all of Rome's gold mines",
+      "It had no taxes",
+      "It was hidden from invaders in the desert"
+    ],
+    "correct_answer": "It sat at major trade crossroads between Europe and Asia"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "Byzantine mosaics were pictures made from many bits of colored glass or stone.",
+    "feedback": "Mosaics were a major Byzantine art form, especially in churches.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 9 - Roman Civilization",
+    "question": "The Byzantine Empire preserved Greek culture and Roman law and lasted for about 1,000 years.",
+    "feedback": "Byzantium carried Roman and Greek traditions forward for centuries.",
+    "type": "True/False",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True"
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "Orders",
+    "question": "Order These",
+    "feedback": "This is first",
+    "type": "Ordering",
+    "items": [
+      "First",
+      "Second"
+    ],
+    "correct_order": [
+      0,
+      1
+    ]
+  },
+  {
+    "subject": "History",
+    "section": "Chapter 8 - The Rise of Rome",
+    "question": "Place these major Roman events in chronological order:",
+    "feedback": "These events trace Rome's rise from republic to empire.",
+    "type": "Ordering",
+    "items": [
+      "Rome becomes a republic",
+      "Romans adopt the Twelve Tables",
+      "Rome destroys Carthage",
+      "Julius Caesar is assassinated",
+      "Octavian becomes Rome's first emperor"
+    ],
+    "correct_order": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "subject": "History",
+    "section": "Ancient China Review",
+    "question": "Match each term with its correct definition:",
+    "feedback": "Farmers produced food and supported the entire social structure.",
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Farmers",
+        "match": "Worked the land, made up most of the population, and grew millet, wheat, and rice."
+      },
+      {
+        "term": "Aristocrats",
+        "match": "Wealthy landowners whose power came from inheriting and controlling land."
+      },
+      {
+        "term": "Huang He River",
+        "match": "The Yellow River known for rich yellow silt and destructive flooding."
+      },
+      {
+        "term": "Legalism",
+        "match": "A philosophy teaching humans are naturally evil and need harsh laws to maintain order."
+      },
+      {
+        "term": "Daoism",
+        "match": "A philosophy encouraging harmony with nature and giving up worldly desires."
+      },
+      {
+        "term": "Buddhism",
+        "match": "A religion from India that spread to China and offered comfort during unrest."
+      },
+      {
+        "term": "Confucianism",
+        "match": "A philosophy based on duty, respect, and moral behavior in society."
+      },
+      {
+        "term": "Merchants",
+        "match": "Lowest-ranked social class that traded goods but had low respect."
+      },
+      {
+        "term": "Filial Piety",
+        "match": "The practice of respecting and obeying parents and elders."
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Topic 6 - Populations, Communities, and Ecosystems",
+    "question": "Match each ecosystem interaction term to its correct description:",
+    "feedback": "These terms describe major interactions and processes in Topic 6.",
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Competition",
+        "match": "The struggle between organisms to survive using the same limited resources"
+      },
+      {
+        "term": "Predation",
+        "match": "One organism kills another for food or nutrients"
+      },
+      {
+        "term": "Mutualism",
+        "match": "A symbiotic relationship in which both species benefit"
+      },
+      {
+        "term": "Commensalism",
+        "match": "A symbiotic relationship in which one species benefits and the other is neither helped nor harmed"
+      },
+      {
+        "term": "Parasitism",
+        "match": "A relationship in which one organism benefits while harming the host"
+      },
+      {
+        "term": "Diocletian",
+        "match": "Divided the empire into four parts in an effort to reform it"
+      },
+      {
+        "term": "Constantine",
+        "match": "Moved the capital to Constantinople and supported Christianity"
+      },
+      {
+        "term": "Justinian",
+        "match": "Reorganized Byzantine law into the Justinian Code"
+      },
+      {
+        "term": "Theodora",
+        "match": "Helped expand women's rights and urged Justinian to stay and fight an uprising"
+      }
+    ]
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "World Capitals",
+    "question": "Fill in the blanks about world capitals:",
+    "feedback": "These are four major world capitals. Many people mistakenly think Sydney is Australia's capital!",
+    "type": "Fill-Blank",
+    "text_with_blanks": "The capital of France is {{blank}}. Japan's capital city is {{blank}}. {{blank}} is the capital of Australia, not Sydney. The United Kingdom's capital is {{blank}}.",
+    "answers": [
+      "Paris",
+      "Tokyo",
+      "Canberra",
+      "London"
+    ],
+    "case_sensitive": false
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "Algebra",
+    "question": "Complete the quadratic formula:",
+    "feedback": "The quadratic formula is: x = (-b ± √(b² - 4ac)) / 2a",
+    "type": "Fill-Blank",
+    "text_with_blanks": "For equation ax² + bx + c = 0, the solutions are: x = {{blank}} ± √(b² - 4ac) / {{blank}}",
+    "answers": [
+      "-b",
+      "2a"
+    ],
+    "case_sensitive": false
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "States of Matter",
+    "question": "Sort these common substances by their state at room temperature (20°C/68°F):",
+    "feedback": "At room temperature, most metals are solid, water and mercury are liquid, and most atmospheric gases are gaseous.",
+    "type": "Categorization",
+    "categories": [
+      "Solid",
+      "Liquid",
+      "Gas"
+    ],
+    "items": [
+      {
+        "text": "Water (H₂O)",
+        "category": "Liquid"
+      },
+      {
+        "text": "Ice",
+        "category": "Solid"
+      },
+      {
+        "text": "Oxygen (O₂)",
+        "category": "Gas"
+      },
+      {
+        "text": "Iron (Fe)",
+        "category": "Solid"
+      },
+      {
+        "text": "Mercury (Hg)",
+        "category": "Liquid"
+      },
+      {
+        "text": "Nitrogen (N₂)",
+        "category": "Gas"
+      },
+      {
+        "text": "Table Salt (NaCl)",
+        "category": "Solid"
+      },
+      {
+        "text": "Alcohol (Ethanol)",
+        "category": "Liquid"
+      }
+    ]
+  },
+  {
+    "subject": "QA - Not Test",
+    "section": "Elements",
+    "question": "Categorize these elements by their group on the periodic table:",
+    "feedback": "Elements in the same group share similar chemical properties due to their electron configurations.",
+    "type": "Categorization",
+    "categories": [
+      "Noble Gases",
+      "Halogens",
+      "Alkali Metals",
+      "Alkaline Earth Metals"
+    ],
+    "items": [
+      {
+        "text": "Helium (He)",
+        "category": "Noble Gases"
+      },
+      {
+        "text": "Sodium (Na)",
+        "category": "Alkali Metals"
+      },
+      {
+        "text": "Chlorine (Cl)",
+        "category": "Halogens"
+      },
+      {
+        "text": "Neon (Ne)",
+        "category": "Noble Gases"
+      },
+      {
+        "text": "Magnesium (Mg)",
+        "category": "Alkaline Earth Metals"
+      },
+      {
+        "text": "Fluorine (F)",
+        "category": "Halogens"
+      },
+      {
+        "text": "Potassium (K)",
+        "category": "Alkali Metals"
+      },
+      {
+        "text": "Calcium (Ca)",
+        "category": "Alkaline Earth Metals"
+      }
+    ]
+  }
+];
 
+// Shared by preview and the published quiz. No server-side duplicate.
+function gradeAnswer(q, answer) {
+    if (answer === null || answer === undefined) return false;
+    const normalize = value => String(value).trim().toLowerCase();
+    switch (q.type) {
+        case 'Ordering':
+            return Array.isArray(answer) && answer.length === q.correct_order.length &&
+                answer.every((value, i) => value === q.correct_order[i]);
+        case 'Matching':
+            return q.pairs.every((pair, i) => answer[i] === pair.match);
+        case 'Categorization':
+            return q.items.every((item, i) => answer[i] === item.category);
+        case 'Fill-Blank':
+            return q.answers.every((expected, i) => {
+                const value = String(answer[i] ?? '').trim();
+                return value !== '' && (q.case_sensitive
+                    ? value === expected.trim() : normalize(value) === normalize(expected));
+            });
+        case 'Multiple Choice': {
+            const expected = new Set(Array.isArray(q.correct_answer) ? q.correct_answer : q.correct_answer.split(';').map(a => a.trim()));
+            const actual = new Set(Array.isArray(answer) ? answer : [answer]);
+            return expected.size === actual.size && [...expected].every(a => actual.has(a));
+        }
+        case 'Short Answer': {
+            const expected = Array.isArray(q.correct_answer) ? q.correct_answer : q.correct_answer.split(';');
+            return normalize(answer) !== '' && expected.some(a => normalize(a) === normalize(answer));
+        }
+        default:
+            return answer === q.correct_answer;
+    }
+}
+
+function correctAnswerText(q) {
+    switch (q.type) {
+        case 'Ordering': return q.correct_order.map(i => q.items[i]).join(' → ');
+        case 'Matching': return q.pairs.map(p => `${p.term}: ${p.match}`).join('; ');
+        case 'Categorization': return q.items.map(i => `${i.text}: ${i.category}`).join('; ');
+        case 'Fill-Blank': return q.answers.join('; ');
+        default: return Array.isArray(q.correct_answer) ? q.correct_answer.join('; ') : q.correct_answer;
+    }
+}
+
+function userAnswerText(q, answer) {
+    if (answer === null || answer === undefined || answer === '') return '(no answer)';
+    if (q.type === 'Ordering') return answer.map(i => q.items[i] ?? '(no answer)').join(' → ');
+    if (q.type === 'Matching') return q.pairs.map((p, i) => `${p.term}: ${answer[i] || '(no answer)'}`).join('; ');
+    if (q.type === 'Categorization') return q.items.map((item, i) => `${item.text}: ${answer[i] || '(no answer)'}`).join('; ');
+    return Array.isArray(answer) ? answer.map(a => a || '(no answer)').join('; ') : String(answer);
+}
+
+if (typeof module !== 'undefined') module.exports = { gradeAnswer, correctAnswerText, userAnswerText };
 
 let currentQuiz = [];
 let currentIndex = 0;
 let userAnswers = [];
 let showFeedback = true;
-
-// Wait for DOM to be ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Debug: Check if data loaded
-    console.log('ALL_QUESTIONS:', ALL_QUESTIONS);
-    console.log('Subjects found:', Object.keys(ALL_QUESTIONS));
-
-    // Initialize - populate subjects
-    const subjects = Object.keys(ALL_QUESTIONS).sort();
-    const subjectSelect = document.getElementById('subject-select');
-
-    if (!subjectSelect) {
-        console.error('subject-select element not found!');
-        return;
-    }
-
-    if (subjects.length === 0) {
-        console.error('No subjects found in data!');
-        subjectSelect.innerHTML = '<option value="">No subjects found - check data</option>';
-    } else {
-        console.log('Populating', subjects.length, 'subjects');
-        subjects.forEach(s => {
-            const opt = document.createElement('option');
-            opt.value = s;
-            opt.textContent = s;
-            subjectSelect.appendChild(opt);
-        });
-    }
-
-    // When subject changes, show sections
-    subjectSelect.addEventListener('change', (e) => {
-        const subject = e.target.value;
-        const sectionsList = document.getElementById('sections-list');
-        sectionsList.innerHTML = '';
-
-        if (!subject) return;
-
-        const sections = Object.keys(ALL_QUESTIONS[subject]).sort();
-        sections.forEach(section => {
-            const label = document.createElement('label');
-            const cb = document.createElement('input');
-            cb.type = 'checkbox';
-            cb.value = section;
-            label.appendChild(cb);
-            label.appendChild(document.createTextNode(' ' + section));
-            sectionsList.appendChild(label);
-        });
-    });
-
-    // Start quiz
-    document.getElementById('start-quiz-btn').addEventListener('click', () => {
-        const subject = subjectSelect.value;
-    const selectedSections = Array.from(document.querySelectorAll('#sections-list input:checked')).map(cb => cb.value);
-    showFeedback = document.getElementById('show-feedback').checked;
-
-    if (!subject || selectedSections.length === 0) {
-        alert('Please select a subject and at least one section');
-        return;
-    }
-
-    // Build quiz with selected sections
-    currentQuiz = [];
-    selectedSections.forEach(section => {
-        currentQuiz.push(...ALL_QUESTIONS[subject][section]);
-    });
-
-    // Shuffle questions every time
-    for (let i = currentQuiz.length - 1; i > 0; i--) {
+let checked = false;
+const $ = id => document.getElementById(id);
+const shuffle = values => {
+    const result = [...values];
+    for (let i = result.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
+        [result[i], result[j]] = [result[j], result[i]];
     }
-
-    // Shuffle options for each question
-    currentQuiz.forEach(q => {
-        if (q.options && q.options.length > 0) {
-            q.shuffledOptions = [...q.options];
-            for (let i = q.shuffledOptions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [q.shuffledOptions[i], q.shuffledOptions[j]] = [q.shuffledOptions[j], q.shuffledOptions[i]];
-            }
-        }
-    });
-
-    userAnswers = new Array(currentQuiz.length).fill(null);
-    currentIndex = 0;
-
-    document.getElementById('setup-screen').classList.add('hidden');
-    document.getElementById('quiz-screen').classList.remove('hidden');
-    document.getElementById('total').textContent = currentQuiz.length;
-    showQuestion(0);
-    });
-
-    // Back button
-    document.getElementById('back-btn').addEventListener('click', () => {
-        if (confirm('Are you sure? Your progress will be lost.')) {
-            location.reload();
-        }
-    });
-}); // End DOMContentLoaded
-
-function shuffleArray(array) {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
+    return result;
+};
+function element(tag, text, className) {
+    const el = document.createElement(tag);
+    if (text !== undefined) el.textContent = text;
+    if (className) el.className = className;
+    return el;
 }
-
-function showQuestion(index) {
-    currentIndex = index;
-    const q = currentQuiz[index];
-
-    document.getElementById('current').textContent = index + 1;
-
-    const container = document.getElementById('question-container');
-    container.innerHTML = '';
-
-    const qText = document.createElement('div');
-    qText.className = 'question-text';
-    qText.textContent = (index + 1) + '. ' + q.question;
-    container.appendChild(qText);
-
-    // Handle EXTENDED question types
-    if (q.type === 'Ordering') {
-        const items = q.shuffledItems || shuffleArray([...q.items]);
-        if (!q.shuffledItems) q.shuffledItems = items;
-        if (!userAnswers[index]) userAnswers[index] = items.map((item, i) => ({item, position: i}));
-
-        const orderedList = document.createElement('div');
-        orderedList.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
-        userAnswers[index].forEach((itemData, pos) => {
-            const itemDiv = document.createElement('div');
-            itemDiv.draggable = true;
-            itemDiv.dataset.position = pos;
-            itemDiv.style.cssText = 'padding:12px;background:white;border:2px solid #d2d2d7;border-radius:8px;cursor:move;';
-            itemDiv.textContent = (pos+1) + '. ' + itemData.item;
-            itemDiv.addEventListener('dragstart', (e) => {e.dataTransfer.setData('text/plain', pos); itemDiv.style.opacity='0.5';});
-            itemDiv.addEventListener('dragend', () => itemDiv.style.opacity='1');
-            itemDiv.addEventListener('dragover', (e) => e.preventDefault());
-            itemDiv.addEventListener('drop', (e) => {
-                e.preventDefault();
-                const fromPos = parseInt(e.dataTransfer.getData('text/plain'));
-                const toPos = parseInt(itemDiv.dataset.position);
-                if (fromPos !== toPos) {
-                    [userAnswers[index][fromPos], userAnswers[index][toPos]] = [userAnswers[index][toPos], userAnswers[index][fromPos]];
-                    showQuestion(index);
-                }
-            });
-            orderedList.appendChild(itemDiv);
-        });
-        container.appendChild(orderedList);
-        const hint = document.createElement('div');
-        hint.style.cssText = 'color:#86868b;font-size:14px;margin-top:8px;';
-        hint.textContent = '💡 Drag items to reorder';
-        container.appendChild(hint);
-    } else if (q.type === 'Matching') {
-        // Drag-and-drop matching: Terms on left, draggable match bubbles on right
-        const shuffledMatches = q.shuffledMatches || shuffleArray([...q.pairs.map(p => p.match)]);
-        if (!q.shuffledMatches) q.shuffledMatches = shuffledMatches;
-        if (!userAnswers[index]) {
-            userAnswers[index] = {};
-            // Initialize with unmatched bubbles
-            shuffledMatches.forEach(m => userAnswers[index][m] = null); // null means in bubble bank
-        }
-
-        const matchContainer = document.createElement('div');
-        matchContainer.style.cssText = 'display:grid;gap:16px;';
-
-        // Create term drop zones on the left
-        q.pairs.forEach(pair => {
-            const termBox = document.createElement('div');
-            termBox.style.cssText = 'background:#f5f5f7;border-radius:12px;padding:16px;border:3px dashed #d2d2d7;min-height:70px;';
-            termBox.dataset.term = pair.term;
-
-            const termLabel = document.createElement('div');
-            termLabel.style.cssText = 'font-weight:600;margin-bottom:8px;color:#1d1d1f;';
-            termLabel.textContent = pair.term;
-            termBox.appendChild(termLabel);
-
-            // Show matched bubble if exists
-            const matchedBubble = Object.entries(userAnswers[index]).find(([match, term]) => term === pair.term);
-            if (matchedBubble) {
-                const bubble = createMatchBubble(matchedBubble[0], index);
-                termBox.appendChild(bubble);
-            }
-
-            // Drop zone handlers
-            termBox.addEventListener('dragover', (e) => {e.preventDefault(); termBox.style.borderColor='#007aff';});
-            termBox.addEventListener('dragleave', () => termBox.style.borderColor='#d2d2d7');
-            termBox.addEventListener('drop', (e) => {
-                e.preventDefault();
-                termBox.style.borderColor='#d2d2d7';
-                const matchText = e.dataTransfer.getData('text/plain');
-                // Remove from previous location
-                Object.keys(userAnswers[index]).forEach(key => {if (userAnswers[index][key] === pair.term) userAnswers[index][key] = null;});
-                // Assign to this term
-                userAnswers[index][matchText] = pair.term;
-                showQuestion(index);
-                updateNavButton();
-            });
-
-            matchContainer.appendChild(termBox);
-        });
-        container.appendChild(matchContainer);
-
-        // Bubble bank for unmatched items
-        const bubbleBank = document.createElement('div');
-        bubbleBank.style.cssText = 'margin-top:20px;padding:16px;background:#e8f4f8;border-radius:12px;min-height:60px;';
-        const bankLabel = document.createElement('div');
-        bankLabel.style.cssText = 'font-weight:600;margin-bottom:12px;color:#1d1d1f;';
-        bankLabel.textContent = '💭 Drag these matches to the terms above:';
-        bubbleBank.appendChild(bankLabel);
-
-        const bubblesContainer = document.createElement('div');
-        bubblesContainer.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;';
-        Object.entries(userAnswers[index]).forEach(([match, term]) => {
-            if (term === null) { // Unmatched
-                const bubble = createMatchBubble(match, index);
-                bubblesContainer.appendChild(bubble);
-            }
-        });
-        bubbleBank.appendChild(bubblesContainer);
-        container.appendChild(bubbleBank);
-
-        // Helper to create draggable bubble
-        function createMatchBubble(matchText, qIndex) {
-            const bubble = document.createElement('div');
-            bubble.draggable = true;
-            bubble.textContent = matchText;
-            bubble.style.cssText = 'display:inline-block;padding:10px 16px;background:#007aff;color:white;border-radius:20px;cursor:move;font-size:14px;font-weight:500;user-select:none;';
-            bubble.addEventListener('dragstart', (e) => {e.dataTransfer.setData('text/plain', matchText); bubble.style.opacity='0.5';});
-            bubble.addEventListener('dragend', () => bubble.style.opacity='1');
-            bubble.addEventListener('click', () => {
-                // Click to return to bank
-                userAnswers[qIndex][matchText] = null;
-                showQuestion(qIndex);
-                updateNavButton();
-            });
-            return bubble;
-        }
-    } else if (q.type === 'Fill-Blank') {
-        if (!userAnswers[index]) userAnswers[index] = new Array(q.answers.length).fill('');
-        const textParts = q.text_with_blanks.split('{{blank}}');
-        const fillContainer = document.createElement('div');
-        fillContainer.style.cssText = 'font-size:16px;line-height:2;';
-        textParts.forEach((part, i) => {
-            const textSpan = document.createElement('span');
-            textSpan.textContent = part;
-            fillContainer.appendChild(textSpan);
-            if (i < textParts.length - 1) {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.style.cssText = 'padding:6px 12px;border:2px solid #d2d2d7;border-radius:6px;min-width:120px;margin:0 4px;';
-                input.value = userAnswers[index][i] || '';
-                input.placeholder = 'Blank ' + (i+1);
-                input.addEventListener('input', (e) => {userAnswers[index][i] = e.target.value; updateNavButton();});
-                fillContainer.appendChild(input);
-            }
-        });
-        container.appendChild(fillContainer);
-    } else if (q.type === 'Categorization') {
-        // Drag-and-drop categorization: Category drop zones + draggable item bubbles
-        const shuffledItems = q.shuffledItems || shuffleArray([...q.items]);
-        if (!q.shuffledItems) q.shuffledItems = shuffledItems;
-        if (!userAnswers[index]) {
-            userAnswers[index] = {};
-            shuffledItems.forEach(item => userAnswers[index][item.text] = null); // null means uncategorized
-        }
-
-        const catContainer = document.createElement('div');
-        catContainer.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;';
-
-        // Create category drop zones
-        q.categories.forEach(category => {
-            const catZone = document.createElement('div');
-            catZone.style.cssText = 'background:#f5f5f7;border-radius:12px;padding:16px;border:3px dashed #d2d2d7;min-height:100px;';
-            catZone.dataset.category = category;
-
-            const catLabel = document.createElement('div');
-            catLabel.style.cssText = 'font-weight:600;margin-bottom:12px;color:#1d1d1f;text-align:center;';
-            catLabel.textContent = category;
-            catZone.appendChild(catLabel);
-
-            const itemsInCat = document.createElement('div');
-            itemsInCat.style.cssText = 'display:flex;flex-direction:column;gap:6px;';
-            // Show items assigned to this category
-            Object.entries(userAnswers[index]).forEach(([itemText, cat]) => {
-                if (cat === category) {
-                    const bubble = createCatBubble(itemText, index);
-                    itemsInCat.appendChild(bubble);
-                }
-            });
-            catZone.appendChild(itemsInCat);
-
-            // Drop zone handlers
-            catZone.addEventListener('dragover', (e) => {e.preventDefault(); catZone.style.borderColor='#007aff';catZone.style.background='#e8f4f8';});
-            catZone.addEventListener('dragleave', () => {catZone.style.borderColor='#d2d2d7';catZone.style.background='#f5f5f7';});
-            catZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                catZone.style.borderColor='#d2d2d7';
-                catZone.style.background='#f5f5f7';
-                const itemText = e.dataTransfer.getData('text/plain');
-                userAnswers[index][itemText] = category;
-                showQuestion(index);
-                updateNavButton();
-            });
-
-            catContainer.appendChild(catZone);
-        });
-        container.appendChild(catContainer);
-
-        // Bubble bank for uncategorized items
-        const bubbleBank = document.createElement('div');
-        bubbleBank.style.cssText = 'padding:16px;background:#e8f4f8;border-radius:12px;min-height:60px;';
-        const bankLabel = document.createElement('div');
-        bankLabel.style.cssText = 'font-weight:600;margin-bottom:12px;color:#1d1d1f;';
-        bankLabel.textContent = '💭 Drag these items to the categories above:';
-        bubbleBank.appendChild(bankLabel);
-
-        const bubblesContainer = document.createElement('div');
-        bubblesContainer.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;';
-        Object.entries(userAnswers[index]).forEach(([itemText, cat]) => {
-            if (cat === null) { // Uncategorized
-                const bubble = createCatBubble(itemText, index);
-                bubblesContainer.appendChild(bubble);
-            }
-        });
-        bubbleBank.appendChild(bubblesContainer);
-        container.appendChild(bubbleBank);
-
-        // Helper to create draggable bubble
-        function createCatBubble(itemText, qIndex) {
-            const bubble = document.createElement('div');
-            bubble.draggable = true;
-            bubble.textContent = itemText;
-            bubble.style.cssText = 'display:inline-block;padding:10px 16px;background:#34c759;color:white;border-radius:20px;cursor:move;font-size:14px;font-weight:500;user-select:none;';
-            bubble.addEventListener('dragstart', (e) => {e.dataTransfer.setData('text/plain', itemText); bubble.style.opacity='0.5';});
-            bubble.addEventListener('dragend', () => bubble.style.opacity='1');
-            bubble.addEventListener('click', () => {
-                // Click to return to bank
-                userAnswers[qIndex][itemText] = null;
-                showQuestion(qIndex);
-                updateNavButton();
-            });
-            return bubble;
-        }
-    } else if (q.type === 'Short Answer') {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'answer-input';
-        input.value = userAnswers[index] || '';
-        input.addEventListener('input', (e) => {
-            userAnswers[index] = e.target.value;
-            updateNavButton();
-        });
-        container.appendChild(input);
-    } else {
-        const ul = document.createElement('ul');
-        ul.className = 'options-list';
-        const inputType = q.type === 'Multiple Choice' ? 'checkbox' : 'radio';
-        const options = q.shuffledOptions || q.options;
-
-        options.forEach(opt => {
-            const li = document.createElement('li');
-            const label = document.createElement('label');
-            const input = document.createElement('input');
-            input.type = inputType;
-            input.name = 'q' + index;
-            input.value = opt;
-
-            if (q.type === 'Multiple Choice') {
-                const current = userAnswers[index] || [];
-                input.checked = current.includes(opt);
-                input.addEventListener('change', (e) => {
-                    if (!userAnswers[index]) userAnswers[index] = [];
-                    if (e.target.checked) {
-                        if (!userAnswers[index].includes(opt)) userAnswers[index].push(opt);
-                    } else {
-                        userAnswers[index] = userAnswers[index].filter(a => a !== opt);
-                    }
-                    updateNavButton();
-                });
-            } else {
-                input.checked = userAnswers[index] === opt;
-                input.addEventListener('change', (e) => {
-                    if (e.target.checked) userAnswers[index] = opt;
-                    updateNavButton();
-                });
-            }
-
-            label.appendChild(input);
-            label.appendChild(document.createTextNode(opt));
-            li.appendChild(label);
-            ul.appendChild(li);
-        });
-        container.appendChild(ul);
-    }
-
-    // Show existing feedback if revisiting
-    if (showFeedback && userAnswers[index] !== null && container.querySelector('.feedback') === null) {
-        const existing = document.getElementById('question-container').dataset.feedbackShown;
-        if (existing === String(index)) {
-            showQuestionFeedback(index);
-        }
-    }
-
-    updateNavButton();
+function selectAnswer(labelText, options, onChange) {
+    const label = element('label', labelText, 'answer-row');
+    const select = element('select', undefined, 'form-control');
+    select.setAttribute('aria-label', labelText);
+    const placeholder = new Option('Choose an answer…', '');
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    select.append(placeholder);
+    options.forEach(({text, value}) => select.append(new Option(text, String(value))));
+    select.addEventListener('change', () => onChange(select.value));
+    label.append(select);
+    return label;
 }
-
-function showQuestionFeedback(index) {
-    const q = currentQuiz[index];
-    const userAns = userAnswers[index];
-    const container = document.getElementById('question-container');
-
-    if (container.querySelector('.feedback')) return;
-
-    const isCorrect = gradeAnswer(q, userAns);
-    const feedback = document.createElement('div');
-    feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
-
-    if (isCorrect) {
-        feedback.innerHTML = '<strong>✓ Correct!</strong>';
-    } else {
-        feedback.innerHTML = '<strong>✗ Incorrect.</strong> Correct: ' + formatAnswer(q.correct_answer);
-    }
-
-    if (q.feedback) {
-        feedback.innerHTML += '<br><br>' + q.feedback;
-    }
-
-    container.appendChild(feedback);
-    container.dataset.feedbackShown = index;
-}
-
-function updateNavButton() {
-    const btn = document.getElementById('next-btn');
-    const feedbackExists = document.getElementById('question-container').querySelector('.feedback');
-
-    if (showFeedback && userAnswers[currentIndex] !== null && !feedbackExists) {
-        btn.textContent = 'Check Answer';
-        btn.onclick = () => {
-            showQuestionFeedback(currentIndex);
-            updateNavButton();
-        };
-    } else if (currentIndex < currentQuiz.length - 1) {
-        btn.textContent = 'Next →';
-        btn.onclick = () => showQuestion(currentIndex + 1);
-    } else {
-        btn.textContent = 'Finish Quiz';
-        btn.onclick = finishQuiz;
-    }
-}
-
-function gradeAnswer(q, userAns) {
-    if (!userAns) return false;
-
-    // Extended question types
-    if (q.type === 'Ordering') {
-        const userOrder = userAns.map(item => q.items.indexOf(item.item));
-        return JSON.stringify(userOrder) === JSON.stringify(q.correct_order);
-    }
-    if (q.type === 'Matching') {
-        return q.pairs.every(pair => userAns[pair.term] === pair.match);
-    }
-    if (q.type === 'Fill-Blank') {
-        const caseSensitive = q.case_sensitive || false;
-        return q.answers.every((ans, i) => {
-            const userAnswer = userAns[i] || '';
-            if (caseSensitive) {
-                return userAnswer.trim() === ans.trim();
-            } else {
-                return userAnswer.trim().toLowerCase() === ans.trim().toLowerCase();
-            }
-        });
-    }
-    if (q.type === 'Categorization') {
-        return q.items.every(item => userAns[item.text] === item.category);
-    }
-
-    // Traditional question types
-    if (q.type === 'Multiple Choice') {
-        const correct = new Set(Array.isArray(q.correct_answer) ? q.correct_answer : q.correct_answer.split(';').map(a => a.trim()));
-        const user = new Set(Array.isArray(userAns) ? userAns : [userAns]);
-        return correct.size === user.size && [...correct].every(a => user.has(a));
-    }
+function showQuestion() {
+    const q = currentQuiz[currentIndex];
+    checked = false;
+    $('current').textContent = currentIndex + 1;
+    const container = $('question-container');
+    container.replaceChildren(element('div', `${currentIndex + 1}. ${q.question}`, 'question-text'));
+    const setAnswer = value => { userAnswers[currentIndex] = value; };
     if (q.type === 'Short Answer') {
-        // Split by semicolon to support multiple acceptable answers
-        const acceptableAnswers = String(q.correct_answer).split(';').map(a => a.trim().toLowerCase());
-        const userAnswer = String(userAns).trim().toLowerCase();
-        return acceptableAnswers.includes(userAnswer);
+        const input = element('input', undefined, 'answer-input');
+        input.type = 'text';
+        input.setAttribute('aria-label', 'Your answer');
+        input.placeholder = 'Type your answer…';
+        input.addEventListener('input', () => setAnswer(input.value));
+        container.append(input);
+    } else if (q.type === 'Fill-Blank') {
+        const answers = Array(q.answers.length).fill('');
+        setAnswer(answers);
+        const paragraph = element('div', undefined, 'fill-blanks');
+        q.text_with_blanks.split('{{blank}}').forEach((part, i, parts) => {
+            paragraph.append(document.createTextNode(part));
+            if (i < parts.length - 1) {
+                const input = element('input');
+                input.type = 'text';
+                input.setAttribute('aria-label', `Blank ${i + 1}`);
+                input.addEventListener('input', () => { answers[i] = input.value; });
+                paragraph.append(input);
+            }
+        });
+        container.append(paragraph);
+    } else if (q.type === 'Ordering') {
+        const answers = Array(q.items.length).fill(null);
+        setAnswer(answers);
+        const options = shuffle(q.items.map((text, value) => ({text, value})));
+        q.items.forEach((_, i) => container.append(selectAnswer(`Position ${i + 1}`, options, value => { answers[i] = Number(value); })));
+    } else if (q.type === 'Matching' || q.type === 'Categorization') {
+        const matching = q.type === 'Matching';
+        const items = matching ? q.pairs : q.items;
+        const answers = Array(items.length).fill('');
+        setAnswer(answers);
+        const choices = matching ? shuffle([...new Set(q.pairs.map(p => p.match))]) : q.categories;
+        const options = choices.map(text => ({text, value: text}));
+        items.forEach((item, i) => container.append(selectAnswer(matching ? item.term : item.text, options, value => { answers[i] = value; })));
+    } else {
+        const multiple = q.type === 'Multiple Choice';
+        const answers = [];
+        const list = element('ul', undefined, 'options-list');
+        shuffle(q.options).forEach(option => {
+            const li = element('li');
+            const label = element('label');
+            const input = element('input');
+            input.type = multiple ? 'checkbox' : 'radio';
+            input.name = 'answer';
+            input.addEventListener('change', () => {
+                if (!multiple) return setAnswer(option);
+                if (input.checked) answers.push(option);
+                else answers.splice(answers.indexOf(option), 1);
+                setAnswer([...answers]);
+            });
+            label.append(input, document.createTextNode(option));
+            li.append(label);
+            list.append(li);
+        });
+        container.append(list);
     }
-    return String(q.correct_answer) === String(userAns);
+    updateButton();
 }
-
-function formatAnswer(ans) {
-    return Array.isArray(ans) ? ans.join('; ') : ans;
+function updateButton() {
+    $('next-btn').textContent = showFeedback && !checked ? 'Check Answer' :
+        currentIndex === currentQuiz.length - 1 ? 'Finish Quiz' : 'Next →';
 }
-
+function checkAnswer() {
+    const q = currentQuiz[currentIndex];
+    const correct = gradeAnswer(q, userAnswers[currentIndex]);
+    const feedback = element('div', correct ? 'Correct!' : `Incorrect. Correct answer: ${correctAnswerText(q)}`, `feedback ${correct ? 'correct' : 'incorrect'}`);
+    if (q.feedback) feedback.append(element('p', q.feedback));
+    $('question-container').append(feedback);
+    // Keep the displayed feedback and final score consistent.
+    $('question-container').querySelectorAll('input, select').forEach(input => { input.disabled = true; });
+    checked = true;
+    updateButton();
+}
 function finishQuiz() {
-    let correct = 0;
+    const results = $('results');
+    const count = currentQuiz.filter((q, i) => gradeAnswer(q, userAnswers[i])).length;
+    results.replaceChildren(element('div', `Score: ${count}/${currentQuiz.length} (${Math.round(count / currentQuiz.length * 100)}%)`, 'score-summary'));
     currentQuiz.forEach((q, i) => {
-        if (gradeAnswer(q, userAnswers[i])) correct++;
+        const correct = gradeAnswer(q, userAnswers[i]);
+        const item = element('div', undefined, `result-item ${correct ? 'correct' : 'incorrect'}`);
+        item.append(element('strong', `${i + 1}. ${q.question}`), element('p', `Your answer: ${userAnswerText(q, userAnswers[i])}`));
+        if (!correct) item.append(element('p', `Correct answer: ${correctAnswerText(q)}`));
+        if (q.feedback) item.append(element('p', q.feedback));
+        results.append(item);
     });
-
-    const results = document.getElementById('results');
-    const pct = Math.round((correct / currentQuiz.length) * 100);
-
-    let html = '<div class="score-summary">Score: ' + correct + '/' + currentQuiz.length + ' (' + pct + '%)</div>';
-
-    currentQuiz.forEach((q, i) => {
-        const isCorrect = gradeAnswer(q, userAnswers[i]);
-        html += '<div class="result-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
-        html += '<div style="font-weight:bold">' + (i+1) + '. ' + q.question + '</div>';
-        html += '<div>Your answer: ' + formatAnswer(userAnswers[i] || '(no answer)') + '</div>';
-        if (!isCorrect) {
-            html += '<div style="color:#28a745">Correct: ' + formatAnswer(q.correct_answer) + '</div>';
-        }
-        if (q.feedback) {
-            html += '<div class="feedback">' + q.feedback + '</div>';
-        }
-        html += '</div>';
-    });
-
-    html += '<button class="btn-primary" onclick="location.reload()">New Quiz</button>';
-
-    results.innerHTML = html;
+    const restart = element('button', 'New Quiz', 'btn-primary');
+    restart.onclick = () => location.reload();
+    results.append(restart);
     results.classList.remove('hidden');
-    document.getElementById('question-container').classList.add('hidden');
-    document.getElementById('next-btn').classList.add('hidden');
+    $('question-container').classList.add('hidden');
+    $('next-btn').classList.add('hidden');
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const subjects = [...new Set(ALL_QUESTIONS.map(q => q.subject))].sort();
+    subjects.forEach(subject => $('subject-select').append(new Option(subject, subject)));
+    $('subject-select').addEventListener('change', () => {
+        $('sections-list').replaceChildren();
+        const sections = [...new Set(ALL_QUESTIONS.filter(q => q.subject === $('subject-select').value).map(q => q.section))].sort();
+        sections.forEach(section => {
+            const label = element('label');
+            const checkbox = element('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = section;
+            checkbox.checked = true;
+            label.append(checkbox, document.createTextNode(` ${section}`));
+            $('sections-list').append(label);
+        });
+    });
+    $('start-quiz-btn').onclick = () => {
+        const sections = [...$('sections-list').querySelectorAll('input:checked')].map(cb => cb.value);
+        currentQuiz = shuffle(ALL_QUESTIONS.filter(q => q.subject === $('subject-select').value && sections.includes(q.section)));
+        if (!currentQuiz.length) return alert('Choose a subject and at least one section.');
+        userAnswers = Array(currentQuiz.length).fill(null);
+        currentIndex = 0;
+        showFeedback = $('show-feedback').checked;
+        $('setup-screen').classList.add('hidden');
+        $('quiz-screen').classList.remove('hidden');
+        $('total').textContent = currentQuiz.length;
+        showQuestion();
+    };
+    $('next-btn').onclick = () => {
+        if (showFeedback && !checked) return checkAnswer();
+        if (currentIndex === currentQuiz.length - 1) return finishQuiz();
+        currentIndex++;
+        showQuestion();
+    };
+    $('back-btn').onclick = () => { if (confirm('Return to setup? Your current answers will be cleared.')) location.reload(); };
+    if (subjects.length === 1) {
+        $('subject-select').value = subjects[0];
+        $('subject-select').dispatchEvent(new Event('change'));
+    }
+});
 
-// Service worker
-if ('serviceWorker' in navigator) {
-    const swCode = `
-self.addEventListener('install', (event) => {
-    event.waitUntil(caches.open('quiz-v1').then(cache => cache.addAll(['/'])));
-});
-self.addEventListener('fetch', (event) => {
-    event.respondWith(caches.match(event.request).then(r => r || fetch(event.request)));
-});
-    `;
-    const blob = new Blob([swCode], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(blob));
-}
+
     </script>
 </body>
 </html>
