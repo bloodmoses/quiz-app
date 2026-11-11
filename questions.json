@@ -1145,6 +1145,262 @@
   },
   {
     "subject": "Science",
+    "section": "Atoms",
+    "question": "What does mass measure?",
+    "feedback": "Mass is the amount of matter, or “stuff,” in an object. Source: Atoms notes.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "The amount of matter in an object",
+      "The space around an object",
+      "Only the number of electrons",
+      "How hot an object is"
+    ],
+    "correct_answer": "The amount of matter in an object"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "What is the smallest particle of an element?",
+    "feedback": "Atoms are the smallest particles of an element. Source: Atoms notes.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "An atom",
+      "A cell",
+      "A grain of sand",
+      "A drop of water"
+    ],
+    "correct_answer": "An atom"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Which states of matter can contain atoms?",
+    "feedback": "Atoms make up matter in all three states. Source: Atoms Practice Worksheet, question 1.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "Solids, liquids, and gases",
+      "Only solids",
+      "Only liquids",
+      "Only gases"
+    ],
+    "correct_answer": "Solids, liquids, and gases"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Which statement best describes atoms?",
+    "feedback": "Atoms are extremely small building blocks that combine to form matter. Source: Atoms notes.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "They are extremely small and combine to make things",
+      "They are large enough to see easily without tools",
+      "They occur only in living things",
+      "They are all the same element"
+    ],
+    "correct_answer": "They are extremely small and combine to make things"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Where is the nucleus, and where is most of an atom’s mass?",
+    "feedback": "The central nucleus contains protons and neutrons, which account for most of the mass. Source: Atoms Practice Worksheet, questions 8–11.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "The nucleus is at the center and contains most of the mass",
+      "The nucleus is outside the atom and contains most of the mass",
+      "The nucleus is at the center but electrons contain most of the mass",
+      "The nucleus is an electron shell"
+    ],
+    "correct_answer": "The nucleus is at the center and contains most of the mass"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Why does a neutral atom have no overall charge?",
+    "feedback": "Positive proton charges balance negative electron charges. Neutrons have no charge. Source: Atoms More Practice Worksheet, Part One.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "It has equal numbers of protons and electrons",
+      "It has no protons",
+      "It has equal numbers of neutrons and electrons",
+      "All its particles have no charge"
+    ],
+    "correct_answer": "It has equal numbers of protons and electrons"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "What happens when a neutral atom gains or loses electrons?",
+    "feedback": "Changing the electron count upsets the balance of positive and negative charges. Source: Atoms More Practice Worksheet, Part Three.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "It becomes an ion",
+      "It always becomes a different element",
+      "It loses its nucleus",
+      "It becomes an isotope just because its electrons changed"
+    ],
+    "correct_answer": "It becomes an ion"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "A neutral atom loses one electron. What does it become?",
+    "feedback": "Losing a negative electron leaves more protons than electrons, giving a +1 charge. Source: Atoms notes, ions.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "A positive ion called a cation",
+      "A negative ion called an anion",
+      "A neutral atom with more neutrons",
+      "A new element with one fewer proton"
+    ],
+    "correct_answer": "A positive ion called a cation"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "A neutral atom gains one electron. What does it become?",
+    "feedback": "Gaining a negative electron gives a −1 charge. Source: Atoms notes, ions.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "A negative ion called an anion",
+      "A positive ion called a cation",
+      "A neutral atom with fewer neutrons",
+      "A new element with one more proton"
+    ],
+    "correct_answer": "A negative ion called an anion"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "What does an element’s atomic number tell you?",
+    "feedback": "Atomic number identifies the proton count. In the worksheet’s periodic-table boxes it is the top number. Source: Atoms More Practice Worksheet, Part Two.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "The number of protons",
+      "The number of protons plus neutrons",
+      "The number of neutrons only",
+      "The number of electron shells"
+    ],
+    "correct_answer": "The number of protons"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Which calculation gives the mass number of one atom?",
+    "feedback": "Mass number counts protons and neutrons. It is different from the average atomic mass often printed as a decimal on a periodic table. Source: Atoms More Practice Worksheet, Part Four.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "Protons + neutrons",
+      "Protons + electrons",
+      "Neutrons − protons",
+      "Electrons + neutrons"
+    ],
+    "correct_answer": "Protons + neutrons"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "An atom has 8 protons, 8 electrons, and 9 neutrons. What is its mass number?",
+    "feedback": "Add 8 protons + 9 neutrons = 17. Do not add the electrons. Source: Atoms More Practice Worksheet, question 20.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "17",
+      "16",
+      "25",
+      "9"
+    ],
+    "correct_answer": "17"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "What makes two atoms isotopes of the same element?",
+    "feedback": "Isotopes stay the same element because their proton counts are equal. Their neutron counts and mass numbers differ. Source: Atoms More Practice Worksheet, questions 21–23.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "Same number of protons, different numbers of neutrons",
+      "Same number of neutrons, different numbers of protons",
+      "Different numbers of electrons only",
+      "Different numbers of protons and electrons only"
+    ],
+    "correct_answer": "Same number of protons, different numbers of neutrons"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Which pair could be two carbon isotopes?",
+    "feedback": "Carbon-12 and carbon-13 both have 6 protons, but have 6 and 7 neutrons. Source: Atoms More Practice Worksheet, question 22.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "6 protons and 6 neutrons / 6 protons and 7 neutrons",
+      "6 protons and 6 neutrons / 7 protons and 6 neutrons",
+      "6 protons and 6 neutrons / 8 protons and 8 neutrons",
+      "6 protons and 6 neutrons / 6 protons and 6 neutrons"
+    ],
+    "correct_answer": "6 protons and 6 neutrons / 6 protons and 7 neutrons"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Which pair could be two oxygen isotopes?",
+    "feedback": "Oxygen-16 and oxygen-17 both have 8 protons. Their different neutron counts make them isotopes. Source: Atoms More Practice Worksheet, question 23.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "8 protons and 8 neutrons / 8 protons and 9 neutrons",
+      "8 protons and 8 neutrons / 9 protons and 8 neutrons",
+      "8 protons and 8 neutrons / 6 protons and 8 neutrons",
+      "8 protons and 8 neutrons / 8 protons and 8 neutrons"
+    ],
+    "correct_answer": "8 protons and 8 neutrons / 8 protons and 9 neutrons"
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "The worksheet lists sodium-22, sodium-23, hydrogen-1, and hydrogen-2. Which are isotope pairs?",
+    "feedback": "Both pairs are isotopes: each pair has the same element but different mass numbers. Source: Atoms More Practice Worksheet, questions 20–21.",
+    "image": null,
+    "image_alt": null,
+    "type": "Single Choice",
+    "options": [
+      "Both sodium-22/sodium-23 and hydrogen-1/hydrogen-2",
+      "Only sodium-22/sodium-23",
+      "Only hydrogen-1/hydrogen-2",
+      "Sodium-22/hydrogen-2"
+    ],
+    "correct_answer": "Both sodium-22/sodium-23 and hydrogen-1/hydrogen-2"
+  },
+  {
+    "subject": "Science",
     "section": "Matter — Solids, Liquids & Gases",
     "question": "Match each state of matter to its shape and volume.",
     "feedback": "Solids keep shape and volume. Liquids keep volume but take the container’s shape. Gases have neither a fixed shape nor a fixed volume. Source: Vocabulary 1; Practice 1, questions 10–13.",
@@ -1714,6 +1970,148 @@
       {
         "term": "Blizzard",
         "match": "A severe winter storm combining strong winds and heavy snow"
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Match the three subatomic particles to their charge and location.",
+    "feedback": "These are the three particles covered in the notes. Protons and neutrons share the nucleus; electrons are outside it. Source: Atoms Practice Worksheet, questions 3–10.",
+    "image": null,
+    "image_alt": null,
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Proton",
+        "match": "Positive charge; in the nucleus"
+      },
+      {
+        "term": "Neutron",
+        "match": "No charge; in the nucleus"
+      },
+      {
+        "term": "Electron",
+        "match": "Negative charge; in shells around the nucleus"
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Match each element to its number of protons. Use these atomic numbers: H = 1, He = 2, C = 6.",
+    "feedback": "The atomic number equals the proton count. Source: Atoms More Practice Worksheet, questions 8–11.",
+    "image": null,
+    "image_alt": null,
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Hydrogen (H)",
+        "match": "1 proton"
+      },
+      {
+        "term": "Helium (He)",
+        "match": "2 protons"
+      },
+      {
+        "term": "Carbon (C)",
+        "match": "6 protons"
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Match each element to its number of protons. Use these atomic numbers: O = 8, Ag = 47, Au = 79.",
+    "feedback": "Use atomic number, not mass number, to find protons. Source: Atoms More Practice Worksheet, questions 10–13.",
+    "image": null,
+    "image_alt": null,
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Oxygen (O)",
+        "match": "8 protons"
+      },
+      {
+        "term": "Silver (Ag)",
+        "match": "47 protons"
+      },
+      {
+        "term": "Gold (Au)",
+        "match": "79 protons"
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Match each particle count to the correct classification.",
+    "feedback": "Equal protons and electrons means neutral. Extra electrons make an anion; fewer electrons make a cation. Neutrons do not change charge. Source: Atoms More Practice Worksheet, question 17.",
+    "image": null,
+    "image_alt": null,
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "10 protons, 10 electrons, 9 neutrons",
+        "match": "Neutral atom (no overall charge)"
+      },
+      {
+        "term": "8 protons, 9 electrons, 8 neutrons",
+        "match": "Anion (−1 charge)"
+      },
+      {
+        "term": "12 protons, 10 electrons, 12 neutrons",
+        "match": "Cation (+2 charge)"
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Match each atom to its neutron count. The number after the name is its mass number.",
+    "feedback": "Neutrons = mass number − protons: 3 − 2 = 1; 7 − 3 = 4; 11 − 5 = 6; 19 − 9 = 10. Source: Atoms More Practice Worksheet, question 20.",
+    "image": null,
+    "image_alt": null,
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Helium-3: 2 protons",
+        "match": "1 neutron"
+      },
+      {
+        "term": "Lithium-7: 3 protons",
+        "match": "4 neutrons"
+      },
+      {
+        "term": "Boron-11: 5 protons",
+        "match": "6 neutrons"
+      },
+      {
+        "term": "Fluorine-19: 9 protons",
+        "match": "10 neutrons"
+      }
+    ]
+  },
+  {
+    "subject": "Science",
+    "section": "Atoms",
+    "question": "Complete the neutral-atom chart by matching each atom to its electron and neutron counts.",
+    "feedback": "For a neutral atom, electrons = protons = atomic number. Neutrons = mass number − atomic number. Source: Atoms More Practice Worksheet, question 20.",
+    "image": null,
+    "image_alt": null,
+    "type": "Matching",
+    "pairs": [
+      {
+        "term": "Neon-21: atomic number 10",
+        "match": "10 electrons and 11 neutrons"
+      },
+      {
+        "term": "Nitrogen-15: atomic number 7",
+        "match": "7 electrons and 8 neutrons"
+      },
+      {
+        "term": "Beryllium-9: atomic number 4",
+        "match": "4 electrons and 5 neutrons"
       }
     ]
   }
